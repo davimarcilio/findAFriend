@@ -1,7 +1,8 @@
-import { createGlobalStyle } from 'styled-components'
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-export default createGlobalStyle`
-  * {
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -17,5 +18,4 @@ export default createGlobalStyle`
 
   body, input, button, textarea, select  {
     font: 400 16px 'Nunito', sans-serif;
-  }
-`
+  } 
