@@ -8,6 +8,7 @@ export default {
         black: '#000000',
         red: {
           500: '#F15156',
+          700: '#E44449',
         },
         yellow: {
           500: '#F4D35E',
