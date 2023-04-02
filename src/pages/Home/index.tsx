@@ -3,6 +3,7 @@ import Logo from '../../assets/icons/logo.svg'
 import * as Select from '@radix-ui/react-select'
 import * as Label from '@radix-ui/react-label'
 import { CaretDown, MagnifyingGlass } from 'phosphor-react'
+import { SelectComponent } from './components/Select'
 export function Home() {
   // function handleSearchPets() {
   //   // TO DO
@@ -35,45 +36,13 @@ export function Home() {
           </h2>
           <form className="flex justify-center items-center gap-2">
             <Label.Root htmlFor="UF_ID">Busque um amigo:</Label.Root>
-            <Select.Root name="UF">
-              <Select.Trigger
-                name="UF"
-                id="UF_ID"
-                className="flex justify-center items-center border gap-1 py-4 px-2 rounded-2xl"
-              >
-                <Select.Value placeholder="UF" />
-                <Select.Icon>
-                  <CaretDown size={16} weight="bold" />
-                </Select.Icon>
-              </Select.Trigger>
-              <Select.Portal>
-                <Select.Content className="bg-blue-900 px-4 py-2 rounded-md flex justify-center items-center">
-                  <Select.Viewport>
-                    <Select.Group className="rounded-2xl">
-                      <Select.Label className="text-sm opacity-70 font-light">
-                        Selecione um estado
-                      </Select.Label>
-                      <Select.Item
-                        className="cursor-pointer focus:opacity-80"
-                        value="SC"
-                      >
-                        <Select.ItemText className="text-lg font-bold">
-                          SC
-                        </Select.ItemText>
-                      </Select.Item>
-                      <Select.Item
-                        className="cursor-pointer focus:opacity-80"
-                        value="RJ"
-                      >
-                        <Select.ItemText className="text-lg font-bold">
-                          RJ
-                        </Select.ItemText>
-                      </Select.Item>
-                    </Select.Group>
-                  </Select.Viewport>
-                </Select.Content>
-              </Select.Portal>
-            </Select.Root>
+
+            <SelectComponent
+              className="flex justify-center items-center border gap-1 py-4 px-2 rounded-2xl"
+              id="UF_ID"
+              name="UF"
+              selectLabel="Selecione um estado"
+            />
 
             {/* Outro select */}
             <Select.Root required name="CITY">
