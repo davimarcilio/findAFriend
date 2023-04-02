@@ -1,52 +1,12 @@
 import * as Label from '@radix-ui/react-label'
 import { MagnifyingGlass } from 'phosphor-react'
-import { app } from '@/lib/axios'
-import { useEffect, useState } from 'react'
-import { CitiesResponse, StateResponse } from '@/models/interfaces/Location'
+import { useContext } from 'react'
 import { Button } from '@/components/Button'
-import { OptionsProps, SelectComponent } from '@/components/Select'
-import { Alert } from '@/components/Alert'
+import { SelectComponent } from '@/components/Select'
+import { LocationContext } from '@/context/LocationContext'
 
 export function Form() {
-  const [states, setStates] = useState<OptionsProps[]>([])
-  const [cities, setCities] = useState<OptionsProps[]>([])
-  const [selectedState, setSelectedState] = useState('')
-
-  async function getStates() {
-    const response = await app.get('/location/states')
-    const treatedResponse: OptionsProps[] = response.data.states.map(
-      (state: StateResponse) => {
-        return {
-          value: state.sigla,
-          label: state.nome,
-        }
-      },
-    )
-    setStates(treatedResponse)
-  }
-  async function getCitiesByState(state: string) {
-    const response = await app.get(`/location/citys/${state}`)
-
-    const treatedResponse: OptionsProps[] = response.data.citys.map(
-      (city: CitiesResponse) => {
-        return {
-          value: city.code,
-          label: city.name,
-        }
-      },
-    )
-    setCities(treatedResponse)
-  }
-
-  useEffect(() => {
-    getStates()
-  }, [])
-
-  useEffect(() => {
-    if (selectedState) {
-      getCitiesByState(selectedState)
-    }
-  }, [selectedState])
+  const { cities, states, getCitiesByState } = useContext(LocationContext)
 
   return (
     <form className="flex justify-center items-center gap-2">
@@ -59,8 +19,7 @@ export function Form() {
         selectLabel="Selecione seu estado"
         options={states}
         onValueChange={(value) => {
-          setCities([])
-          setSelectedState(value)
+          getCitiesByState(value)
         }}
         disabled={!(states.length > 0)}
       />
@@ -75,7 +34,6 @@ export function Form() {
       <Button>
         <MagnifyingGlass weight="bold" className="text-blue-900" size={26} />
       </Button>
-      <Alert description="Sigla não existe" title="Erro" action="success" />
     </form>
   )
 }

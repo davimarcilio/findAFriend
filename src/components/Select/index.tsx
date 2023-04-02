@@ -1,11 +1,8 @@
+import { OptionsProps } from '@/models/interfaces/Select'
 import * as Select from '@radix-ui/react-select'
 import { CaretDown } from 'phosphor-react'
 import { ComponentProps } from 'react'
 
-export interface OptionsProps {
-  value: string
-  label: string
-}
 interface SelectComponentProps extends ComponentProps<typeof Select.Root> {
   selectLabel: string
   name: string

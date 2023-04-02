@@ -31,7 +31,13 @@ export function Alert({ description, title, action }: AlertProps) {
   return (
     <Toast.Provider duration={3000} swipeDirection="down" swipeThreshold={200}>
       <Toast.Root
-        className={`absolute bottom-5 right-5 ${classAction} border-2 border-black flex flex-col justify-center items-start max-w-xs py-2 px-10 transition-all rounded-2xl data-[state=open]:animate-open-alert data-[state=closed]:animate-close-alert data-[swipe=move]:translate-x-{var(--radix-toast-swipe-move-x)} data-[swipe=cancel]:translate-x-0 data-[swipe=cancel]:duration-200 data-[swipe=cancel]:transition-all`}
+        className={`absolute bottom-5 right-5 ${classAction} border-2 border-black flex flex-col justify-center items-start max-w-xs py-2 px-10 transition-all rounded-2xl 
+        data-[state=open]:animate-open-alert 
+        data-[state=closed]:animate-close-alert 
+        data-[swipe=move]:translate-x-{var(--radix-toast-swipe-move-x)} 
+        data-[swipe=cancel]:translate-x-0 
+        data-[swipe=cancel]:duration-200 
+        data-[swipe=cancel]:transition-all`}
       >
         <Toast.Title className="font-bold text-xl ">{title}</Toast.Title>
         <Toast.Description className="text-sm">{description}</Toast.Description>
