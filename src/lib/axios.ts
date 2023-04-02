@@ -1,5 +1,5 @@
 import axios from 'axios'
 
-export const app = axios({
-  baseURL: import.meta.env.SERVER_URL,
+export const app = axios.create({
+  baseURL: import.meta.env.VITE_SERVER_URL,
 })
