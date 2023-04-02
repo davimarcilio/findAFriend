@@ -1,3 +1,4 @@
 {
-  "extends": ["@rocketseat/eslint-config/react"]
+  "extends": ["@rocketseat/eslint-config/react"],
+  "ignorePatterns": "*.d.ts"
 }
