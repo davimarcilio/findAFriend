@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react'
 import { CitiesResponse, StateResponse } from '@/models/interfaces/Location'
 import { Button } from '@/components/Button'
 import { OptionsProps, SelectComponent } from '@/components/Select'
+import { Alert } from '@/components/Alert'
 
 export function Form() {
   const [states, setStates] = useState<OptionsProps[]>([])
@@ -74,6 +75,7 @@ export function Form() {
       <Button>
         <MagnifyingGlass weight="bold" className="text-blue-900" size={26} />
       </Button>
+      <Alert description="Sigla não existe" title="Erro" action="success" />
     </form>
   )
 }
