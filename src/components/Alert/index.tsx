@@ -29,10 +29,14 @@ export function Alert({
     }
   }, [action])
 
+  function handleCloseAlert() {
+    closeAlert()
+  }
+
   return (
     <Toast.Provider swipeDirection="down" swipeThreshold={200}>
       <Toast.Root
-        onClick={closeAlert}
+        onClick={handleCloseAlert}
         open={open}
         className={`absolute bottom-5 right-5 ${classAction} border-2 border-black flex flex-col justify-center items-start max-w-xs py-2 px-10 transition-all rounded-2xl 
         data-[state=open]:animate-open-alert 
@@ -45,7 +49,7 @@ export function Alert({
         <Toast.Title className="font-bold text-xl ">{title}</Toast.Title>
         <Toast.Description className="text-sm">{description}</Toast.Description>
         <Toast.Close
-          onClick={closeAlert}
+          onClick={handleCloseAlert}
           asChild
           className="absolute top-2 right-2 cursor-pointer "
         >
