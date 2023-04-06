@@ -1,8 +1,14 @@
 import { app } from '@/lib/axios'
 import { CitiesResponse, StateResponse } from '@/models/interfaces/Location'
 import { OptionsProps } from '@/models/interfaces/Select'
-import { ReactNode, createContext, useEffect, useState } from 'react'
-
+import {
+  ReactNode,
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+} from 'react'
+import { AlertContext } from './AlertContext'
 interface LocationContextProviderProps {
   children: ReactNode
 }
@@ -18,6 +24,7 @@ export const LocationContext = createContext({} as LocationContextProps)
 export function LocationContextProvider({
   children,
 }: LocationContextProviderProps) {
+  const { alertDispatch } = useContext(AlertContext)
   const [states, setStates] = useState<OptionsProps[]>([])
   const [cities, setCities] = useState<OptionsProps[]>([])
   async function getStates() {
@@ -33,17 +40,26 @@ export function LocationContextProvider({
     setStates(treatedResponse)
   }
   async function getCitiesByState(state: string) {
-    const response = await app.get(`/location/citys/${state}`)
+    try {
+      const response = await app.get(`/location/citys/${state}`)
 
-    const treatedResponse: OptionsProps[] = response.data.citys.map(
-      (city: CitiesResponse) => {
-        return {
-          value: city.code,
-          label: city.name,
-        }
-      },
-    )
-    setCities(treatedResponse)
+      const treatedResponse: OptionsProps[] = response.data.citys.map(
+        (city: CitiesResponse) => {
+          return {
+            value: city.code,
+            label: city.name,
+          }
+        },
+      )
+      setCities(treatedResponse)
+    } catch (error) {
+      alertDispatch({
+        action: 'error',
+        description: 'Sigla de UF inválida',
+        title: 'Erro ao carregar cidades!',
+        open: true,
+      })
+    }
   }
 
   useEffect(() => {
