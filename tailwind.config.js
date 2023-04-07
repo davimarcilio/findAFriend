@@ -3,6 +3,12 @@ export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
+      gridTemplateColumns: {
+        1.5: 'repeat(3, minmax(280px, 1fr));',
+      },
+      fontFamily: {
+        Nunito: 'Nunito',
+      },
       keyframes: {
         hide: {
           from: {
@@ -40,6 +46,8 @@ export default {
         white: '#ffff',
         black: '#000000',
         red: {
+          100: '#fdeced',
+          150: '#fbe1e2',
           500: '#F15156',
           700: '#E44449',
         },
