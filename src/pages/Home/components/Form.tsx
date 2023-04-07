@@ -1,15 +1,45 @@
 import * as Label from '@radix-ui/react-label'
 import { MagnifyingGlass } from 'phosphor-react'
-import { useContext } from 'react'
+import { FormEvent, useContext, useState } from 'react'
 import { Button } from '@/components/Button'
 import { SelectComponent } from '@/components/Select'
 import { LocationContext } from '@/context/LocationContext'
+import { UserContext } from '@/context/UserContext'
+import { useNavigate } from 'react-router-dom'
 
 export function Form() {
   const { cities, states, getCitiesByState } = useContext(LocationContext)
+  const { registerUserLocation } = useContext(UserContext)
+
+  const [state, setState] = useState('')
+  const [city, setCity] = useState('')
+
+  const navigate = useNavigate()
+
+  function handleSubmit(event: FormEvent) {
+    event.preventDefault()
+    registerUserLocation({
+      state,
+      city,
+    })
+    navigate('/map')
+  }
+
+  function handleGetCitiesByState(state: string) {
+    setCity('')
+    getCitiesByState(state)
+    setState(state)
+  }
+
+  function handleGetCity(city: string) {
+    setCity(city)
+  }
 
   return (
-    <form className="flex justify-center items-center gap-2">
+    <form
+      onSubmit={handleSubmit}
+      className="flex justify-center items-center gap-2"
+    >
       <Label.Root htmlFor="UF_ID">Busque um amigo:</Label.Root>
 
       <SelectComponent
@@ -19,7 +49,7 @@ export function Form() {
         selectLabel="Selecione seu estado"
         options={states}
         onValueChange={(value) => {
-          getCitiesByState(value)
+          handleGetCitiesByState(value)
         }}
         disabled={!(states.length > 0)}
       />
@@ -29,9 +59,12 @@ export function Form() {
         name="Cidade"
         selectLabel="Selecione sua cidade"
         options={cities}
+        onValueChange={(value) => {
+          handleGetCity(value)
+        }}
         disabled={!(cities.length > 0)}
       />
-      <Button>
+      <Button disabled={!state || !city}>
         <MagnifyingGlass weight="bold" className="text-blue-900" size={26} />
       </Button>
     </form>
