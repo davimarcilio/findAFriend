@@ -46,8 +46,10 @@ export default {
         white: '#ffff',
         black: '#000000',
         red: {
+          50: '#f2f2f2',
           100: '#fdeced',
           150: '#fbe1e2',
+          400: '#F75F64',
           500: '#F15156',
           700: '#E44449',
         },

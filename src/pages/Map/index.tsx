@@ -1,26 +1,24 @@
 // import { Aside } from '~/Aside'
 // import { Card } from '~/Card'
 
-import chevron from '@/assets/icons/chevron-bottom-blue.svg'
+import { Aside } from '@/components/Aside'
+import { SelectComponent } from '@/components/Select'
 // import dog from '@/assets/images/dog.png'
-
-// import {
-//   Container,
-//   Content,
-//   SelectWrapper,
-//   Header,
-//   HeaderSelect,
-//   Display,
-// } from './styles'
 
 export function Map() {
   // function handleFilterByPetType() {
   //   // TO DO
   // }
 
+  const petOptions = [
+    { value: 'all', label: 'Gatos e Cachorros' },
+    { value: 'cats', label: 'Gatos' },
+    { value: 'dogs', label: 'Cachorros' },
+  ]
+
   return (
     <div className="flex">
-      {/* <Aside /> */}
+      <Aside />
 
       <div className="flex-1 bg-red-100 pt-40 px-8 pb-12 h-screen overflow-y-scroll">
         <div className="flex items-center justify-between mb-11 ">
@@ -29,7 +27,15 @@ export function Map() {
             cidade
           </p>
           <div className="relative">
-            <select
+            <SelectComponent
+              name="pets"
+              selectLabel="Selecione os tipos"
+              id="pets"
+              options={petOptions}
+              defaultValue={petOptions[0].value}
+              className="w-52 h-12 flex items-center justify-between py-4 px-5 border-none rounded-2xl bg-red-150 outline-none appearance-none font-Nunito text-base text-blue-900"
+            />
+            {/* <select
               className="w-52 h-12 py-4 px-5 border-none rounded-2xl bg-red-150 outline-none appearance-none font-Nunito text-base text-blue-900"
               name="size"
               id="size"
@@ -37,12 +43,7 @@ export function Map() {
               <option value="all">Gatos e Cachorros</option>
               <option value="cats">Gatos</option>
               <option value="dogs">Cachorros</option>
-            </select>
-            <img
-              className="absolute right-4 top-1/2 translate-y-1/2"
-              src={chevron}
-              alt=""
-            />
+            </select> */}
           </div>
         </div>
         <div className="grid grid-cols-1.5 gap-8">

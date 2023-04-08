@@ -1,4 +1,4 @@
 export interface OptionsProps {
-  value: string
+  value: string | number
   label: string
 }
