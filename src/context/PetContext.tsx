@@ -6,7 +6,6 @@ import {
   PetParams,
   PetSize,
   PetType,
-  ResponsePetUrl,
 } from '@/models/interfaces/Pet'
 import {
   ReactNode,
@@ -17,6 +16,7 @@ import {
 } from 'react'
 import { UserContext } from './UserContext'
 import { AlertContext } from './AlertContext'
+import { ResponsePetUrl } from '@/models/interfaces/ApiResponse'
 
 interface PetContextProviderProps {
   children: ReactNode

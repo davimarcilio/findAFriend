@@ -24,9 +24,3 @@ export interface Pet {
   orgId: string
   photo_url: string
 }
-
-export interface ResponsePetUrl {
-  data: {
-    pets: Pet[]
-  }
-}

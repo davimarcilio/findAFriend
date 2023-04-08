@@ -1,5 +1,5 @@
 import { app } from '@/lib/axios'
-import { CitiesResponse, StateResponse } from '@/models/interfaces/Location'
+import { City, State } from '@/models/interfaces/Location'
 import { OptionsProps } from '@/models/interfaces/Select'
 import {
   ReactNode,
@@ -9,6 +9,7 @@ import {
   useState,
 } from 'react'
 import { AlertContext } from './AlertContext'
+import { ResponseLocationCities } from '@/models/interfaces/ApiResponse'
 interface LocationContextProviderProps {
   children: ReactNode
 }
@@ -31,7 +32,7 @@ export function LocationContextProvider({
     try {
       const response = await app.get('/location/states')
       const treatedResponse: OptionsProps[] = response.data.states.map(
-        (state: StateResponse) => {
+        (state: State) => {
           return {
             value: state.sigla,
             label: state.nome,
@@ -50,10 +51,12 @@ export function LocationContextProvider({
   async function getCitiesByState(state: string) {
     try {
       setCities([])
-      const response = await app.get(`/location/citys/${state}`)
+      const response: ResponseLocationCities = await app.get(
+        `/location/citys/${state}`,
+      )
 
       const treatedResponse: OptionsProps[] = response.data.citys.map(
-        (city: CitiesResponse) => {
+        (city: City) => {
           return {
             value: city.name,
             label: city.name,

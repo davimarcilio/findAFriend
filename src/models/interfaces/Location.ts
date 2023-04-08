@@ -1,17 +1,17 @@
-export interface RegionResponse {
+export interface Region {
   id: number
   nome: string
   sigla: string
 }
 
-export interface StateResponse {
+export interface State {
   id: number
   sigla: string
   nome: string
-  regiao: RegionResponse
+  regiao: Region
 }
 
-export interface CitiesResponse {
+export interface City {
   code: string
   name: string
 }
