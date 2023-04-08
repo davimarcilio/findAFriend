@@ -2,17 +2,12 @@ import { Aside } from '@/components/Aside'
 import { Card } from '@/components/Card'
 import { SelectComponent } from '@/components/Select'
 import dog from '@/assets/images/dog.png'
+import { petOptions } from '@/utils/petsOptions'
 
 export function Map() {
   // function handleFilterByPetType() {
   //   // TO DO
   // }
-
-  const petOptions = [
-    { value: 'all', label: 'Gatos e Cachorros' },
-    { value: 'cats', label: 'Gatos' },
-    { value: 'dogs', label: 'Cachorros' },
-  ]
 
   return (
     <div className="flex">

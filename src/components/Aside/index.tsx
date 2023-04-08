@@ -6,6 +6,12 @@ import { Button } from '../Button'
 import { SelectComponent } from '../Select'
 import { useContext } from 'react'
 import { LocationContext } from '@/context/LocationContext'
+import {
+  ageOptions,
+  energyOptions,
+  independencyOptions,
+  sizeOptions,
+} from '@/utils/petsOptions'
 // import {
 //   Container,
 //   AsideHeader,
@@ -14,71 +20,6 @@ import { LocationContext } from '@/context/LocationContext'
 //   ContentHeader,
 //   ContentFilters,
 // } from './styles'
-
-const ageOptions = [
-  {
-    label: 'Filhote',
-    value: 'cub',
-  },
-  {
-    label: 'Adolescente',
-    value: 'adolescent',
-  },
-  {
-    label: 'Idoso',
-    value: 'elderly',
-  },
-]
-const energyOptions = [
-  {
-    label: 'Muito baixa',
-    value: 1,
-  },
-  {
-    label: 'Baixa',
-    value: 2,
-  },
-  {
-    label: 'Média',
-    value: 3,
-  },
-  {
-    label: 'Alta',
-    value: 4,
-  },
-  {
-    label: 'Muito alta',
-    value: 5,
-  },
-]
-const sizeOptions = [
-  {
-    label: 'Pequenino',
-    value: 'small',
-  },
-  {
-    label: 'Médio',
-    value: 'medium',
-  },
-  {
-    label: 'Grande',
-    value: 'big',
-  },
-]
-const independencyOptions = [
-  {
-    label: 'Baixo',
-    value: 'low',
-  },
-  {
-    label: 'Médio',
-    value: 'medium',
-  },
-  {
-    label: 'Alto',
-    value: 'high',
-  },
-]
 
 export function Aside() {
   // function handleSearchPets() {
@@ -118,16 +59,7 @@ export function Aside() {
               options={cities}
               disabled={!(cities.length > 0)}
             />
-            {/* <input
-              className="w-52 h-14 font-bold text-base text-white py-5 px-4 rounded-2xl bg-transparent border border-red-500 outline-none placeholder:text-red-50"
-              type="text"
-              placeholder="Cidade"
-            /> */}
-            {/* <input
-              className="w-52 h-14 font-bold text-base text-white py-5 px-4 rounded-2xl bg-transparent border border-red-500 outline-none placeholder:text-red-50"
-              type="text"
-              placeholder="UF"
-            /> */}
+
             <Button className="w-full transition-all">
               <img className="w-6" src={search} alt="ícone de lupa" />
             </Button>
