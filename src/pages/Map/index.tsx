@@ -1,9 +1,7 @@
-// import { Aside } from '~/Aside'
-// import { Card } from '~/Card'
-
 import { Aside } from '@/components/Aside'
+import { Card } from '@/components/Card'
 import { SelectComponent } from '@/components/Select'
-// import dog from '@/assets/images/dog.png'
+import dog from '@/assets/images/dog.png'
 
 export function Map() {
   // function handleFilterByPetType() {
@@ -35,26 +33,17 @@ export function Map() {
               defaultValue={petOptions[0].value}
               className="w-52 h-12 flex items-center justify-between py-4 px-5 border-none rounded-2xl bg-red-150 outline-none appearance-none font-Nunito text-base text-blue-900"
             />
-            {/* <select
-              className="w-52 h-12 py-4 px-5 border-none rounded-2xl bg-red-150 outline-none appearance-none font-Nunito text-base text-blue-900"
-              name="size"
-              id="size"
-            >
-              <option value="all">Gatos e Cachorros</option>
-              <option value="cats">Gatos</option>
-              <option value="dogs">Cachorros</option>
-            </select> */}
           </div>
         </div>
         <div className="grid grid-cols-1.5 gap-8">
-          {/* <Card path={dog} type="dog" name="Alfredo" />
-          <Card path={dog} type="cat" name="Tobia" />
           <Card path={dog} type="dog" name="Alfredo" />
           <Card path={dog} type="cat" name="Tobia" />
           <Card path={dog} type="dog" name="Alfredo" />
           <Card path={dog} type="cat" name="Tobia" />
           <Card path={dog} type="dog" name="Alfredo" />
-          <Card path={dog} type="cat" name="Tobia" /> */}
+          <Card path={dog} type="cat" name="Tobia" />
+          <Card path={dog} type="dog" name="Alfredo" />
+          <Card path={dog} type="cat" name="Tobia" />
         </div>
       </div>
     </div>
