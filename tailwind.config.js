@@ -26,6 +26,24 @@ export default {
             transform: 'translateX(0)',
           },
         },
+        slideDown: {
+          from: {
+            height: 0,
+          },
+          to: {
+            height: 'var(--radix-accordion-content-height)',
+          },
+        },
+
+        slideUp: {
+          from: {
+            height: 'var(--radix-accordion-content-height)',
+          },
+          to: {
+            height: 0,
+          },
+        },
+
         swipeOut: {
           from: {
             transform: 'translateX(var(--radix-toast-swipe-end-x))',
@@ -36,6 +54,8 @@ export default {
         },
       },
       animation: {
+        'open-accordion': 'slideDown 500ms cubic-bezier(0.87, 0, 0.13, 1)',
+        'close-accordion': 'slideUp 500ms cubic-bezier(0.87, 0, 0.13, 1)',
         'open-alert': 'slideIn 150ms cubic-bezier(0.16, 1, 0.3, 1)',
         'close-alert': 'hide 100ms ease-in',
         // 'swipe-move-alert': 'translateX(var(--radix-toast-swipe-move-x))',

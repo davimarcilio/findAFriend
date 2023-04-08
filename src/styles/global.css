@@ -27,7 +27,7 @@
   aside::-webkit-scrollbar{
     position: absolute;
     right: 0;
-width: 6px;
+width: 0px;
   }
   aside::-webkit-scrollbar-track{
     

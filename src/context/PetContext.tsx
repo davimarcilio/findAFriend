@@ -41,7 +41,7 @@ export function PetContextProvider({ children }: PetContextProviderProps) {
   const [energy, setEnergy] = useState<number>()
   const [size, setSize] = useState('' as PetSize)
   const [type, setType] = useState('' as PetType)
-  const [pets, setPets] = useState<Pet[]>()
+  const [pets, setPets] = useState([] as Pet[])
   const [isSubmitting, setIsSubmitting] = useState(false)
   const { user } = useContext(UserContext)
   const { alertDispatch } = useContext(AlertContext)
