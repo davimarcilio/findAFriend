@@ -4,13 +4,18 @@ import { SelectComponent } from '@/components/Select'
 import { petOptions } from '@/utils/petsOptions'
 import { useContext } from 'react'
 import { PetContext } from '@/context/PetContext'
+import { PetType } from '@/models/interfaces/Pet'
 
 export function Map() {
   // function handleFilterByPetType() {
   //   // TO DO
   // }
 
-  const { pets } = useContext(PetContext)
+  const { pets, changePetType } = useContext(PetContext)
+
+  function handleChangePetType(type: PetType) {
+    changePetType(type)
+  }
 
   return (
     <div className="flex">
@@ -19,7 +24,8 @@ export function Map() {
       <div className="flex-1 bg-red-100 pt-40 px-8 pb-12 h-screen overflow-y-scroll home">
         <div className="flex items-center justify-between mb-11 ">
           <p className="text-xl leading-8 font-normal text-blue-900">
-            Encontre <span className="font-extrabold">324 amigos</span> na sua
+            Encontre{' '}
+            <span className="font-extrabold">{pets.length} amigos</span> na sua
             cidade
           </p>
           <div className="relative">
@@ -30,6 +36,9 @@ export function Map() {
               options={petOptions}
               defaultValue={petOptions[0].value}
               className="w-52 h-12 flex items-center justify-between py-4 px-5 border-none rounded-2xl bg-red-150 outline-none appearance-none font-Nunito text-base text-blue-900"
+              onValueChange={(value: PetType) => {
+                handleChangePetType(value)
+              }}
             />
           </div>
         </div>
