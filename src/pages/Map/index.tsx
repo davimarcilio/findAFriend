@@ -1,13 +1,16 @@
 import { Aside } from '@/components/Aside'
 import { Card } from '@/components/Card'
 import { SelectComponent } from '@/components/Select'
-import dog from '@/assets/images/dog.png'
 import { petOptions } from '@/utils/petsOptions'
+import { useContext } from 'react'
+import { PetContext } from '@/context/PetContext'
 
 export function Map() {
   // function handleFilterByPetType() {
   //   // TO DO
   // }
+
+  const { pets } = useContext(PetContext)
 
   return (
     <div className="flex">
@@ -31,14 +34,23 @@ export function Map() {
           </div>
         </div>
         <div className="grid grid-cols-1.5 gap-8">
+          {!!pets &&
+            pets.map((pet) => (
+              <Card
+                key={pet.id}
+                path={pet.photo_url}
+                type={pet.type}
+                name={pet.name}
+              />
+            ))}
+
+          {/* <Card path={dog} type="cat" name="Tobia" />
           <Card path={dog} type="dog" name="Alfredo" />
           <Card path={dog} type="cat" name="Tobia" />
           <Card path={dog} type="dog" name="Alfredo" />
           <Card path={dog} type="cat" name="Tobia" />
           <Card path={dog} type="dog" name="Alfredo" />
-          <Card path={dog} type="cat" name="Tobia" />
-          <Card path={dog} type="dog" name="Alfredo" />
-          <Card path={dog} type="cat" name="Tobia" />
+          <Card path={dog} type="cat" name="Tobia" /> */}
         </div>
       </div>
     </div>

@@ -4,15 +4,18 @@ import './styles/global.css'
 import { LocationContextProvider } from './context/LocationContext'
 import { AlertContextProvider } from './context/AlertContext'
 import { UserContextProvider } from './context/UserContext'
+import { PetContextProvider } from './context/PetContext'
 
 export function App() {
   return (
     <AlertContextProvider>
       <LocationContextProvider>
         <UserContextProvider>
-          <BrowserRouter>
-            <Router />
-          </BrowserRouter>
+          <PetContextProvider>
+            <BrowserRouter>
+              <Router />
+            </BrowserRouter>
+          </PetContextProvider>
         </UserContextProvider>
       </LocationContextProvider>
     </AlertContextProvider>
