@@ -76,11 +76,11 @@ export function Aside() {
             </Accordion.Trigger>
           </Accordion.Header>
           <Accordion.Content className="data-[state='open']:animate-open-accordion transition-all data-[state='closed']:animate-close-accordion overflow-hidden">
-            <Filter isMobile={false} />
+            <Filter className="py-4" isMobile />
           </Accordion.Content>
         </Accordion.Item>
       </Accordion.Root>
-      <Filter isMobile />
+      <Filter className="max-sm:hidden" />
     </aside>
   )
 }

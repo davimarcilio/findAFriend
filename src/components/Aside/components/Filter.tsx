@@ -10,10 +10,11 @@ import {
 import { useContext } from 'react'
 
 interface FilterProps {
-  isMobile: boolean
+  className?: string
+  isMobile?: boolean
 }
 
-export function Filter({ isMobile }: FilterProps) {
+export function Filter({ className, isMobile }: FilterProps) {
   const {
     changePetAge,
     changePetEnergy,
@@ -33,12 +34,8 @@ export function Filter({ isMobile }: FilterProps) {
     changePetIndependence(independence)
   }
   return (
-    <div
-      className={`flex flex-col ${
-        isMobile ? 'hidden' : 'block'
-      } py-9 max-md:px-6 px-14`}
-    >
-      <h1 className="text-xl leading-8 mb-7">Filtros</h1>
+    <div className={`flex flex-col ${className} py-9 max-md:px-6 px-14`}>
+      {!isMobile && <h1 className="text-xl leading-8 mb-7">Filtros</h1>}
       <div className="flex flex-col gap-8">
         <SelectComponent
           name="Idade"
