@@ -4,6 +4,8 @@ import logo from '@/assets/icons/logo.svg'
 import search from '@/assets/icons/search.svg'
 import { Button } from '../Button'
 import { SelectComponent } from '../Select'
+import { useContext } from 'react'
+import { LocationContext } from '@/context/LocationContext'
 // import {
 //   Container,
 //   AsideHeader,
@@ -87,18 +89,46 @@ export function Aside() {
   //   // TO DO
   // }
 
+  const { states, cities, getCitiesByState } = useContext(LocationContext)
+  function handleGetCitiesByState(state: string) {
+    getCitiesByState(state)
+  }
   return (
     <aside className="w-96 h-screen bg-red-500 overflow-y-auto">
-      <div className="h-60 bg-red-700">
+      <div className=" bg-red-700">
         <div className="pt-20 px-14 pb-6 flex flex-col gap-6">
           <img className="w-11" src={logo} alt="" />
-          <div className="flex gap-3">
-            <input
+          <div className="flex flex-col gap-3">
+            <SelectComponent
+              id="UF"
+              name="UF"
+              selectLabel="Selecione um estado"
+              className="flex justify-between hover:opacity-90 transition-all items-center border border-red-500 bg-transparent font-bold gap-1 py-4 px-10 rounded-2xl"
+              options={states}
+              onValueChange={(value) => {
+                handleGetCitiesByState(value)
+              }}
+              disabled={!(states.length > 0)}
+            />
+            <SelectComponent
+              className="flex justify-between hover:opacity-90 transition-all gap-2 items-center py-4 bg-red-700 border font-bold w-full border-red-500 px-10 rounded-2xl"
+              id="CITY_ID"
+              name="Cidade"
+              selectLabel="Selecione sua cidade"
+              options={cities}
+              disabled={!(cities.length > 0)}
+            />
+            {/* <input
               className="w-52 h-14 font-bold text-base text-white py-5 px-4 rounded-2xl bg-transparent border border-red-500 outline-none placeholder:text-red-50"
               type="text"
-              placeholder="Insira uma cidade"
-            />
-            <Button className="w-14 h-14">
+              placeholder="Cidade"
+            /> */}
+            {/* <input
+              className="w-52 h-14 font-bold text-base text-white py-5 px-4 rounded-2xl bg-transparent border border-red-500 outline-none placeholder:text-red-50"
+              type="text"
+              placeholder="UF"
+            /> */}
+            <Button className="w-full transition-all">
               <img className="w-6" src={search} alt="ícone de lupa" />
             </Button>
           </div>
