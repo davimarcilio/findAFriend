@@ -14,6 +14,7 @@ import {
 } from '@/utils/petsOptions'
 import { UserContext } from '@/context/UserContext'
 import { PetContext } from '@/context/PetContext'
+import { PetAge, PetIndependence, PetSize } from '@/models/interfaces/Pet'
 
 export function Aside() {
   // function handleSearchPets() {
@@ -26,7 +27,13 @@ export function Aside() {
 
   const { states, cities, getCitiesByState } = useContext(LocationContext)
   const { registerUserLocation, user } = useContext(UserContext)
-  const { isSubmitting } = useContext(PetContext)
+  const {
+    isSubmitting,
+    changePetAge,
+    changePetEnergy,
+    changePetIndependence,
+    changePetSize,
+  } = useContext(PetContext)
   function handleGetCitiesByState(state: string) {
     getCitiesByState(state)
     setState(state)
@@ -35,6 +42,18 @@ export function Aside() {
   const [city, setCity] = useState(user.city)
   function handleRegisterUserLocation() {
     registerUserLocation({ state, city })
+  }
+  function handleChangePetAge(age: PetAge) {
+    changePetAge(age)
+  }
+  function handleChangePetEnergy(energy: number) {
+    changePetEnergy(energy)
+  }
+  function handleChangePetSize(size: PetSize) {
+    changePetSize(size)
+  }
+  function handleChangePetIndependence(independence: PetIndependence) {
+    changePetIndependence(independence)
   }
   return (
     <aside className="w-96 h-screen bg-red-500 overflow-y-auto">
@@ -86,6 +105,9 @@ export function Aside() {
             id="age"
             selectLabel="Idade"
             label="Idade"
+            onValueChange={(value: PetAge) => {
+              handleChangePetAge(value)
+            }}
             className="flex font-bold justify-between gap-2 items-center py-4 bg-red-400 px-10 rounded-2xl"
           />
           <SelectComponent
@@ -95,6 +117,9 @@ export function Aside() {
             selectLabel="Nível de energia"
             label="Nível de energia"
             className="flex font-bold justify-between gap-2 items-center py-4 bg-red-400 px-10 rounded-2xl"
+            onValueChange={(value) => {
+              handleChangePetEnergy(Number(value))
+            }}
           />
           <SelectComponent
             name="Porte do animal"
@@ -103,6 +128,9 @@ export function Aside() {
             selectLabel="Porte do Animal"
             label="Porte do Animal"
             className="flex font-bold justify-between gap-2 items-center py-4 bg-red-400 px-10 rounded-2xl"
+            onValueChange={(value: PetSize) => {
+              handleChangePetSize(value)
+            }}
           />
           <SelectComponent
             name="independência"
@@ -111,6 +139,9 @@ export function Aside() {
             selectLabel="Nível de independência"
             label="Nível de independência"
             className="flex font-bold justify-between gap-2 items-center py-4 bg-red-400 px-10 rounded-2xl"
+            onValueChange={(value: PetIndependence) => {
+              handleChangePetIndependence(value)
+            }}
           />
         </div>
       </div>
