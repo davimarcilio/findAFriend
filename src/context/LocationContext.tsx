@@ -49,6 +49,7 @@ export function LocationContextProvider({
   }
   async function getCitiesByState(state: string) {
     try {
+      setCities([])
       const response = await app.get(`/location/citys/${state}`)
 
       const treatedResponse: OptionsProps[] = response.data.citys.map(

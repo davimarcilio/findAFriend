@@ -13,14 +13,7 @@ import {
   sizeOptions,
 } from '@/utils/petsOptions'
 import { UserContext } from '@/context/UserContext'
-// import {
-//   Container,
-//   AsideHeader,
-//   HeaderInput,
-//   AsideContent,
-//   ContentHeader,
-//   ContentFilters,
-// } from './styles'
+import { PetContext } from '@/context/PetContext'
 
 export function Aside() {
   // function handleSearchPets() {
@@ -31,14 +24,15 @@ export function Aside() {
   //   // TO DO
   // }
 
-  const [state, setState] = useState('')
-  const [city, setCity] = useState('')
-
   const { states, cities, getCitiesByState } = useContext(LocationContext)
-  const { registerUserLocation } = useContext(UserContext)
+  const { registerUserLocation, user } = useContext(UserContext)
+  const { isSubmitting } = useContext(PetContext)
   function handleGetCitiesByState(state: string) {
     getCitiesByState(state)
+    setState(state)
   }
+  const [state, setState] = useState(user.state)
+  const [city, setCity] = useState(user.city)
   function handleRegisterUserLocation() {
     registerUserLocation({ state, city })
   }
@@ -54,9 +48,9 @@ export function Aside() {
               selectLabel="Selecione um estado"
               className="flex justify-between hover:opacity-90 transition-all items-center border border-red-500 bg-transparent font-bold gap-1 py-4 px-10 rounded-2xl"
               options={states}
+              defaultValue={user.state}
               onValueChange={(value) => {
                 handleGetCitiesByState(value)
-                setState(value)
               }}
               disabled={!(states.length > 0)}
             />
@@ -66,6 +60,7 @@ export function Aside() {
               name="Cidade"
               selectLabel="Selecione sua cidade"
               options={cities}
+              defaultValue={user.city}
               disabled={!(cities.length > 0)}
               onValueChange={(value) => {
                 setCity(value)
@@ -74,7 +69,7 @@ export function Aside() {
 
             <Button
               onClick={handleRegisterUserLocation}
-              disabled={!city || !state}
+              disabled={!city || !state || isSubmitting}
               className="w-full transition-all"
             >
               <img className="w-6" src={search} alt="ícone de lupa" />

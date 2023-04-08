@@ -23,6 +23,7 @@ interface PetContextProviderProps {
 }
 
 interface PetContextProps {
+  isSubmitting: boolean
   petQuery: PetParams
   pets: Pet[]
   changePetAge: (age: PetAge) => void
@@ -41,6 +42,7 @@ export function PetContextProvider({ children }: PetContextProviderProps) {
   const [size, setSize] = useState('' as PetSize)
   const [type, setType] = useState('' as PetType)
   const [pets, setPets] = useState<Pet[]>()
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const { user } = useContext(UserContext)
   const { alertDispatch } = useContext(AlertContext)
   function changePetAge(age: PetAge) {
@@ -62,6 +64,7 @@ export function PetContextProvider({ children }: PetContextProviderProps) {
   useEffect(() => {
     async function getPets() {
       try {
+        setIsSubmitting(true)
         const response: ResponsePetUrl = await app.get(
           `/pets/${user.city ?? 'Sao Paulo'}`,
           {
@@ -75,12 +78,15 @@ export function PetContextProvider({ children }: PetContextProviderProps) {
           },
         )
         setPets(response.data.pets)
+        setIsSubmitting(false)
       } catch (error) {
         alertDispatch({
           action: 'error',
           description: 'Não foi possível carregar os pets!',
           title: 'Falha',
         })
+      } finally {
+        setIsSubmitting(false)
       }
     }
     getPets()
@@ -89,6 +95,7 @@ export function PetContextProvider({ children }: PetContextProviderProps) {
   return (
     <PetContext.Provider
       value={{
+        isSubmitting,
         pets,
         petQuery: {
           age,
