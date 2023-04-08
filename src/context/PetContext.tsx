@@ -76,8 +76,6 @@ export function PetContextProvider({ children }: PetContextProviderProps) {
         )
         setPets(response.data.pets)
       } catch (error) {
-        console.log(error)
-
         alertDispatch({
           action: 'error',
           description: 'Não foi possível carregar os pets!',
@@ -86,7 +84,7 @@ export function PetContextProvider({ children }: PetContextProviderProps) {
       }
     }
     getPets()
-  }, [age, independence, energy, size, type])
+  }, [age, independence, energy, size, type, user])
 
   return (
     <PetContext.Provider

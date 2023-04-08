@@ -4,7 +4,7 @@ import logo from '@/assets/icons/logo.svg'
 import search from '@/assets/icons/search.svg'
 import { Button } from '../Button'
 import { SelectComponent } from '../Select'
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import { LocationContext } from '@/context/LocationContext'
 import {
   ageOptions,
@@ -12,6 +12,7 @@ import {
   independencyOptions,
   sizeOptions,
 } from '@/utils/petsOptions'
+import { UserContext } from '@/context/UserContext'
 // import {
 //   Container,
 //   AsideHeader,
@@ -30,9 +31,16 @@ export function Aside() {
   //   // TO DO
   // }
 
+  const [state, setState] = useState('')
+  const [city, setCity] = useState('')
+
   const { states, cities, getCitiesByState } = useContext(LocationContext)
+  const { registerUserLocation } = useContext(UserContext)
   function handleGetCitiesByState(state: string) {
     getCitiesByState(state)
+  }
+  function handleRegisterUserLocation() {
+    registerUserLocation({ state, city })
   }
   return (
     <aside className="w-96 h-screen bg-red-500 overflow-y-auto">
@@ -48,6 +56,7 @@ export function Aside() {
               options={states}
               onValueChange={(value) => {
                 handleGetCitiesByState(value)
+                setState(value)
               }}
               disabled={!(states.length > 0)}
             />
@@ -58,9 +67,16 @@ export function Aside() {
               selectLabel="Selecione sua cidade"
               options={cities}
               disabled={!(cities.length > 0)}
+              onValueChange={(value) => {
+                setCity(value)
+              }}
             />
 
-            <Button className="w-full transition-all">
+            <Button
+              onClick={handleRegisterUserLocation}
+              disabled={!city || !state}
+              className="w-full transition-all"
+            >
               <img className="w-6" src={search} alt="ícone de lupa" />
             </Button>
           </div>

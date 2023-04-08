@@ -28,16 +28,24 @@ export function LocationContextProvider({
   const [states, setStates] = useState<OptionsProps[]>([])
   const [cities, setCities] = useState<OptionsProps[]>([])
   async function getStates() {
-    const response = await app.get('/location/states')
-    const treatedResponse: OptionsProps[] = response.data.states.map(
-      (state: StateResponse) => {
-        return {
-          value: state.sigla,
-          label: state.nome,
-        }
-      },
-    )
-    setStates(treatedResponse)
+    try {
+      const response = await app.get('/location/states')
+      const treatedResponse: OptionsProps[] = response.data.states.map(
+        (state: StateResponse) => {
+          return {
+            value: state.sigla,
+            label: state.nome,
+          }
+        },
+      )
+      setStates(treatedResponse)
+    } catch (error) {
+      alertDispatch({
+        action: 'error',
+        description: 'Carregamento dos estados',
+        title: 'Erro',
+      })
+    }
   }
   async function getCitiesByState(state: string) {
     try {
@@ -46,7 +54,7 @@ export function LocationContextProvider({
       const treatedResponse: OptionsProps[] = response.data.citys.map(
         (city: CitiesResponse) => {
           return {
-            value: city.code,
+            value: city.name,
             label: city.name,
           }
         },
@@ -57,7 +65,6 @@ export function LocationContextProvider({
         action: 'error',
         description: 'Sigla de UF inválida',
         title: 'Erro ao carregar cidades!',
-        open: true,
       })
     }
   }
