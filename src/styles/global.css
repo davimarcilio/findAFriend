@@ -25,5 +25,25 @@
     font: 400 16px 'Nunito', sans-serif;
   } 
   aside::-webkit-scrollbar{
-width: 0;
+    position: absolute;
+    right: 0;
+width: 6px;
+  }
+  aside::-webkit-scrollbar-track{
+    
+    background: #E44449;
+  }
+  aside::-webkit-scrollbar-thumb{
+    background-color: #F75F64;
+    border-radius: 8px;
+  }
+
+  .home::-webkit-scrollbar{
+width: 6px;
+  }
+
+  .home::-webkit-scrollbar-thumb{
+    background: #F75F64;
+
+    border-radius: 8px;
   }

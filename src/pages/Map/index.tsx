@@ -18,7 +18,7 @@ export function Map() {
     <div className="flex">
       <Aside />
 
-      <div className="flex-1 bg-red-100 pt-40 px-8 pb-12 h-screen overflow-y-scroll">
+      <div className="flex-1 bg-red-100 pt-40 px-8 pb-12 h-screen overflow-y-scroll home">
         <div className="flex items-center justify-between mb-11 ">
           <p className="text-xl leading-8 font-normal text-blue-900">
             Encontre <span className="font-extrabold">324 amigos</span> na sua
