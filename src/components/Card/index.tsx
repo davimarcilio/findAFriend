@@ -12,7 +12,11 @@ export function Card({ path, name, type }: CardProps) {
   return (
     <div className="max-w-[280px] cursor-pointer w-full flex items-center group flex-col p-1 rounded-3xl bg-white overflow-hidden hover:bg-blue-900">
       <div className="group-hover:bg-blue-900 object-cover">
-        <img className="w-full" src={path} alt={`Foto de ${name}`} />
+        <img
+          className="w-full rounded-3xl"
+          src={path}
+          alt={`Foto de ${name}`}
+        />
       </div>
       <div className="group-hover:bg-blue-900">
         <div className="w-12 h-12 flex justify-center items-center my-0 mx-auto -mt-7 p-1 rounded-lg overflow-hidden bg-white">
