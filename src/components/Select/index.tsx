@@ -24,7 +24,7 @@ export function SelectComponent({
 }: SelectComponentProps) {
   return (
     <Select.Root {...props} required name={name}>
-      <div className="flex flex-col gap-3 text-xs font-medium">
+      <div className="flex flex-col gap-3 max-sm:w-full text-xs font-medium">
         {label && <Label.Root htmlFor={id}>{label}</Label.Root>}
 
         <Select.Trigger

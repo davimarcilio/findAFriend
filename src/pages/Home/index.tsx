@@ -3,33 +3,21 @@ import Logo from '../../assets/icons/logo.svg'
 import { Form } from './components/Form'
 
 export function Home() {
-  // function handleSearchPets() {
-  //   // TO DO
-  // }
-
-  // function handleChangeState() {
-  //   // TO DO
-  // }
-
-  // function handleChangeCity() {
-  //   // TO DO
-  // }
-
   return (
-    <main className="w-screen h-screen bg-red-500 flex justify-center items-center">
-      <div className="max-w-7xl max-h-[572px] py-10 h-full flex justify-between items-center flex-col">
+    <main className="w-screen h-screen bg-red-500 flex justify-center px-5 items-center">
+      <div className="max-w-7xl max-h-[572px] max-lg:max-h-none py-10 h-full max-lg:gap-6 flex justify-between max-sm:justify-center items-center flex-col">
         <header className="flex self-start justify-center items-center gap-3">
           <img className="h-14" src={Logo} alt="" />
           <h1 className="font-bold text-xl">FindAFriend</h1>
         </header>
-        <section className="flex justify-between items-center w-full">
-          <h1 className="font-extrabold text-7xl leading-[90%] self-end max-w-lg">
+        <section className="flex justify-between max-lg:flex-col items-center max-lg:gap-6 w-full">
+          <h1 className="font-extrabold text-7xl max-sm:text-5xl leading-[90%] max-lg:self-start self-end max-w-lg max-lg:max-w-none">
             Leve a felicidade para o seu lar
           </h1>
-          <img className="max-w-xl" src={dogsHome} alt="Dogs" />
+          <img className="max-w-xl max-sm:hidden" src={dogsHome} alt="Dogs" />
         </section>
-        <section className="flex justify-between items-center w-full">
-          <h2 className="text-2xl font-semibold max-w-sm">
+        <section className="flex max-lg:flex-col max-lg:gap-6 justify-between items-center w-full">
+          <h2 className="text-2xl max-sm:text-xl font-semibold max-lg:max-w-none max-w-sm">
             Encontre o animal de estimação ideal para seu estilo de vida!
           </h2>
           <Form />

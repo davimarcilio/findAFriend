@@ -38,12 +38,12 @@ export function Form() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex justify-center items-center gap-2"
+      className="flex justify-center max-sm:flex-col items-center max-lg:w-full gap-2"
     >
       <Label.Root htmlFor="UF_ID">Busque um amigo:</Label.Root>
 
       <SelectComponent
-        className="flex justify-center items-center border gap-1 py-4 px-2 rounded-2xl"
+        className="flex justify-center items-center border max-sm:w-full gap-1 py-4 px-2 rounded-2xl"
         id="UF_ID"
         name="UF"
         selectLabel="Selecione seu estado"
@@ -54,7 +54,7 @@ export function Form() {
         disabled={!(states.length > 0)}
       />
       <SelectComponent
-        className="flex justify-center gap-2 items-center py-4 bg-red-700 px-10 rounded-2xl"
+        className="flex justify-center gap-2 max-sm:w-full items-center py-4 bg-red-700 px-10 rounded-2xl"
         id="CITY_ID"
         name="Cidade"
         selectLabel="Selecione sua cidade"
@@ -64,7 +64,7 @@ export function Form() {
         }}
         disabled={!(cities.length > 0)}
       />
-      <Button disabled={!state || !city}>
+      <Button className="max-sm:w-full" disabled={!state || !city}>
         <MagnifyingGlass weight="bold" className="text-blue-900" size={26} />
       </Button>
     </form>
