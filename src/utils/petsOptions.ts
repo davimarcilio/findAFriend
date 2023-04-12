@@ -6,6 +6,10 @@ export const petOptions = [
 
 export const ageOptions = [
   {
+    label: 'Todos',
+    value: '',
+  },
+  {
     label: 'Filhote',
     value: 'cub',
   },
@@ -19,6 +23,10 @@ export const ageOptions = [
   },
 ]
 export const energyOptions = [
+  {
+    label: 'Todos',
+    value: 0,
+  },
   {
     label: 'Muito baixa',
     value: 1,
@@ -42,6 +50,10 @@ export const energyOptions = [
 ]
 export const sizeOptions = [
   {
+    label: 'Todos',
+    value: '',
+  },
+  {
     label: 'Pequenino',
     value: 'small',
   },
@@ -55,6 +67,10 @@ export const sizeOptions = [
   },
 ]
 export const independencyOptions = [
+  {
+    label: 'Todos',
+    value: '',
+  },
   {
     label: 'Baixo',
     value: 'low',

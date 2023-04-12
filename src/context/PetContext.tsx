@@ -71,7 +71,7 @@ export function PetContextProvider({ children }: PetContextProviderProps) {
             params: {
               age,
               independence,
-              energy,
+              energy: energy === 0 ? null : energy,
               size,
               type,
             },
