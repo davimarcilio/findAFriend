@@ -1,14 +1,20 @@
-import { City } from './Location'
-import { Pet } from './Pet'
+import { City, State } from './Location'
+import { CompletePet, Pet, PetGallery } from './Pet'
 
 export interface ResponsePetUrl {
-  data: {
-    pets: Pet[]
-  }
+  pets: Pet[]
+}
+
+export interface ResponseUniquePetUrl {
+  pet: CompletePet
 }
 
 export interface ResponseLocationCities {
-  data: {
-    citys: City[]
-  }
+  citys: City[]
+}
+export interface ResponsePetUniqueGalleryUrl {
+  pet_gallery: PetGallery[]
+}
+export interface ResponseLocationStates {
+  states: State[]
 }

@@ -9,7 +9,11 @@ import {
   useState,
 } from 'react'
 import { AlertContext } from './AlertContext'
-import { ResponseLocationCities } from '@/models/interfaces/ApiResponse'
+import {
+  ResponseLocationCities,
+  ResponseLocationStates,
+} from '@/models/interfaces/ApiResponse'
+import { AxiosResponse } from 'axios'
 interface LocationContextProviderProps {
   children: ReactNode
 }
@@ -30,15 +34,15 @@ export function LocationContextProvider({
   const [cities, setCities] = useState<OptionsProps[]>([])
   async function getStates() {
     try {
-      const response = await app.get('/location/states')
-      const treatedResponse: OptionsProps[] = response.data.states.map(
-        (state: State) => {
-          return {
-            value: state.sigla,
-            label: state.nome,
-          }
-        },
+      const response: AxiosResponse<ResponseLocationStates> = await app.get(
+        '/location/states',
       )
+      const treatedResponse = response.data.states.map((state: State) => {
+        return {
+          value: state.sigla,
+          label: state.nome,
+        }
+      })
       setStates(treatedResponse)
     } catch (error) {
       alertDispatch({
@@ -51,18 +55,16 @@ export function LocationContextProvider({
   async function getCitiesByState(state: string) {
     try {
       setCities([])
-      const response: ResponseLocationCities = await app.get(
+      const response: AxiosResponse<ResponseLocationCities> = await app.get(
         `/location/citys/${state}`,
       )
 
-      const treatedResponse: OptionsProps[] = response.data.citys.map(
-        (city: City) => {
-          return {
-            value: city.name,
-            label: city.name,
-          }
-        },
-      )
+      const treatedResponse = response.data.citys.map((city: City) => {
+        return {
+          value: city.name,
+          label: city.name,
+        }
+      })
       setCities(treatedResponse)
     } catch (error) {
       alertDispatch({

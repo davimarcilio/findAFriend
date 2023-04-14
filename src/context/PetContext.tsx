@@ -1,7 +1,9 @@
 import { app } from '@/lib/axios'
 import {
+  CompletePet,
   Pet,
   PetAge,
+  PetGallery,
   PetIndependence,
   PetParams,
   PetSize,
@@ -16,7 +18,12 @@ import {
 } from 'react'
 import { UserContext } from './UserContext'
 import { AlertContext } from './AlertContext'
-import { ResponsePetUrl } from '@/models/interfaces/ApiResponse'
+import {
+  ResponsePetUniqueGalleryUrl,
+  ResponsePetUrl,
+  ResponseUniquePetUrl,
+} from '@/models/interfaces/ApiResponse'
+import { AxiosResponse } from 'axios'
 
 interface PetContextProviderProps {
   children: ReactNode
@@ -25,12 +32,16 @@ interface PetContextProviderProps {
 interface PetContextProps {
   isSubmitting: boolean
   petQuery: PetParams
+  currentPet: CompletePet
+  currentPetGallery: PetGallery[]
   pets: Pet[]
   changePetAge: (age: PetAge) => void
   changePetIndependence: (independence: PetIndependence) => void
   changePetEnergy: (energy: number) => void
   changePetSize: (size: PetSize) => void
   changePetType: (type: PetType) => void
+  getUniquePet: (id: string) => Promise<void>
+  getPetGallery: (id: string) => Promise<string>
 }
 
 export const PetContext = createContext({} as PetContextProps)
@@ -43,6 +54,8 @@ export function PetContextProvider({ children }: PetContextProviderProps) {
   const [type, setType] = useState('' as PetType)
   const [pets, setPets] = useState([] as Pet[])
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [currentPet, setCurrentPet] = useState({} as CompletePet)
+  const [currentPetGallery, setCurrentPetGallery] = useState<PetGallery[]>([])
   const { user } = useContext(UserContext)
   const { alertDispatch } = useContext(AlertContext)
   function changePetAge(age: PetAge) {
@@ -61,11 +74,27 @@ export function PetContextProvider({ children }: PetContextProviderProps) {
     setType(type)
   }
 
+  async function getUniquePet(id: string) {
+    const response: AxiosResponse<ResponseUniquePetUrl> = await app.get(
+      `/pets/show/${id}`,
+    )
+    setCurrentPet(response.data.pet)
+  }
+
+  async function getPetGallery(id: string) {
+    const response: AxiosResponse<ResponsePetUniqueGalleryUrl> = await app.get(
+      `/pets/gallery/${id}`,
+    )
+
+    setCurrentPetGallery(response.data.pet_gallery)
+    return response.data.pet_gallery[0].photo_url
+  }
+
   useEffect(() => {
     async function getPets() {
       try {
         setIsSubmitting(true)
-        const response: ResponsePetUrl = await app.get(
+        const response: AxiosResponse<ResponsePetUrl> = await app.get(
           `/pets/${user.city ?? 'Sao Paulo'}`,
           {
             params: {
@@ -95,6 +124,8 @@ export function PetContextProvider({ children }: PetContextProviderProps) {
   return (
     <PetContext.Provider
       value={{
+        currentPet,
+        currentPetGallery,
         isSubmitting,
         pets,
         petQuery: {
@@ -109,6 +140,8 @@ export function PetContextProvider({ children }: PetContextProviderProps) {
         changePetIndependence,
         changePetSize,
         changePetType,
+        getPetGallery,
+        getUniquePet,
       }}
     >
       {children}

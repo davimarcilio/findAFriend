@@ -1,16 +1,21 @@
 import logo from '@/assets/icons/logo.svg'
+import { ComponentProps } from 'react'
+import { Link } from 'react-router-dom'
 
 // import { Container, Name, PetImage, TypeIcon } from './styles'
 
-type CardProps = {
+interface CardProps extends ComponentProps<typeof Link> {
   path: string
   name: string
   type: 'dog' | 'cat'
 }
 
-export function Card({ path, name, type }: CardProps) {
+export function Card({ path, name, type, ...props }: CardProps) {
   return (
-    <div className="max-w-[280px] cursor-pointer w-full flex items-center group flex-col p-1 rounded-3xl bg-white overflow-hidden hover:bg-blue-900">
+    <Link
+      {...props}
+      className="max-w-[280px] cursor-pointer w-full flex items-center group flex-col p-1 rounded-3xl bg-white overflow-hidden hover:bg-blue-900"
+    >
       <div className="group-hover:bg-blue-900 object-cover">
         <img
           className="w-full rounded-3xl"
@@ -31,6 +36,6 @@ export function Card({ path, name, type }: CardProps) {
           {name}
         </p>
       </div>
-    </div>
+    </Link>
   )
 }

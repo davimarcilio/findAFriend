@@ -41,6 +41,7 @@ export function Map() {
           {!!pets &&
             pets.map((pet) => (
               <Card
+                to={`/Pet/${pet.id}`}
                 key={pet.id}
                 path={pet.photo_url}
                 type={pet.type}

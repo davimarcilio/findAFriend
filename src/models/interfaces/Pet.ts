@@ -24,3 +24,22 @@ export interface Pet {
   orgId: string
   photo_url: string
 }
+
+export interface PetOrg {
+  id: string
+  nome: string
+  address: string
+  cep: string
+  whatsappNumber: string
+}
+
+export interface CompletePet extends Pet {
+  org: PetOrg
+}
+
+export interface PetGallery {
+  id: string
+  image: string
+  petId: string
+  photo_url: string
+}
