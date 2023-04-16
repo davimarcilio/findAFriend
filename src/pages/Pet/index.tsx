@@ -3,6 +3,7 @@ import { useContext, useEffect, useState } from 'react'
 import { useLocation, useParams } from 'react-router-dom'
 import * as RadioGroup from '@radix-ui/react-radio-group'
 import { PetContext } from '@/context/PetContext'
+import { Lightning } from 'phosphor-react'
 
 export function Pet() {
   const [currentSelectedImage, setCurrentSelectedImage] = useState('')
@@ -55,6 +56,72 @@ export function Pet() {
                 ))}
               </RadioGroup.Root>
             )}
+            <section
+              className="flex flex-col gap-6 mt-16"
+              id="title&description"
+            >
+              <h1 className="text-blue-900 text-6xl font-extrabold">
+                {currentPet.name}
+              </h1>
+              <p className="text-blue-900 font-semibold text-lg">
+                {currentPet.description}
+              </p>
+            </section>
+            <section
+              className="mt-11 flex justify-between items-center"
+              id="stats"
+            >
+              <div
+                id="Energy"
+                className="flex flex-col justify-center items-start gap-1 border border-blue-900 border-opacity-20 w-fit rounded-3xl p-6"
+              >
+                <div className="flex justify-start items-center">
+                  {Array.from({ length: 5 }, (_, index) => index).map(
+                    (energy) => (
+                      <Lightning
+                        weight={
+                          energy >= currentPet.energy ? 'fill' : 'regular'
+                        }
+                        opacity={energy >= currentPet.energy ? 0.3 : 1}
+                        className="text-blue-900"
+                        size={20}
+                        key={energy}
+                      />
+                    ),
+                  )}
+                </div>
+                <p className="text-blue-900 text-lg font-semibold">
+                  {currentPet.energy <= 2
+                    ? 'Pouca energia'
+                    : currentPet.energy > 2 && currentPet.energy < 4
+                    ? 'Normal'
+                    : 'Muita energia'}
+                </p>
+              </div>
+              <div
+                id="Independence"
+                className="flex flex-col justify-center items-start gap-1 border border-blue-900 border-opacity-20 w-fit rounded-3xl p-6"
+              >
+                <div className="flex justify-start items-center">
+                  {Array.from({ length: 5 }, (_, index) => index).map(
+                    (energy) => (
+                      <Lightning
+                        weight={
+                          energy >= currentPet.energy ? 'fill' : 'regular'
+                        }
+                        opacity={energy >= currentPet.energy ? 0.3 : 1}
+                        className="text-blue-900"
+                        size={20}
+                        key={energy}
+                      />
+                    ),
+                  )}
+                </div>
+                <p className="text-blue-900 text-lg font-semibold">
+                  Muita energia
+                </p>
+              </div>
+            </section>
           </div>
         </section>
       </div>
