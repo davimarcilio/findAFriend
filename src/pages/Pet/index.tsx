@@ -6,13 +6,26 @@ import { PetContext } from '@/context/PetContext'
 import { Circle, CornersIn, CornersOut, Lightning } from 'phosphor-react'
 import { PetIndependence, PetSize } from '@/models/interfaces/Pet'
 import { PropsSection } from './components/PropsSection'
+import { GoogleMap, Marker, useLoadScript } from '@react-google-maps/api'
 
 export function Pet() {
   const [currentSelectedImage, setCurrentSelectedImage] = useState('')
-  const { currentPet, currentPetGallery, getUniquePet, getPetGallery } =
-    useContext(PetContext)
+  const {
+    orgCoords,
+    currentPet,
+    currentPetGallery,
+    getUniquePet,
+    getPetGallery,
+  } = useContext(PetContext)
   const { id } = useParams()
   const location = useLocation()
+
+  const { isLoaded } = useLoadScript({
+    googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API, // ,
+    // ...otherOptions
+  })
+
+  console.log(import.meta.env.VITE_SERVER_URL)
 
   useEffect(() => {
     getUniquePet(id)
@@ -63,7 +76,9 @@ export function Pet() {
     }
   }
 
-  console.log(currentPet)
+  // async function getPetCoordinates() {
+  //   await
+  // }
 
   return (
     <main className="flex">
@@ -170,6 +185,46 @@ export function Pet() {
                   {formatSizeString(currentPet.size)}
                 </p>
               </PropsSection>
+            </section>
+            <section className="bg-blue-900 flex flex-col justify-center items-center rounded-2xl mt-20">
+              {/* <LoadScript googleMapsApiKey="AIzaSyAjvX-rDyrpW--Ix9OnRSq6wcGss-nmKMg"> */}
+              {isLoaded && orgCoords.latitude ? (
+                <>
+                  <GoogleMap
+                    mapContainerStyle={{
+                      width: '100%',
+                      height: 225,
+                      borderRadius: '1rem',
+                    }}
+                    center={{
+                      lat: Number(orgCoords.latitude),
+                      lng: Number(orgCoords.longitude),
+                    }}
+                    zoom={15}
+                    options={{
+                      streetViewControl: false,
+                      panControl: false,
+                      fullscreenControl: false,
+                      zoomControl: false,
+                      mapTypeControl: false,
+                    }}
+                  >
+                    {orgCoords.latitude && (
+                      <Marker
+                        position={{
+                          lat: Number(orgCoords.latitude),
+                          lng: Number(orgCoords.longitude),
+                        }}
+                      />
+                    )}
+                  </GoogleMap>
+                  <button className="font-bold text-lg text-yellow-500 my-5 cursor-pointer">
+                    Ver rotas no Google Maps
+                  </button>
+                </>
+              ) : (
+                <h1>Carregando</h1>
+              )}
             </section>
           </div>
         </section>

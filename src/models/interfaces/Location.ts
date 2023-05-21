@@ -15,3 +15,13 @@ export interface City {
   code: string
   name: string
 }
+
+export interface Coordinates {
+  latitude: string
+  longitude: string
+}
+
+export interface ResponseCoordinates {
+  address: string
+  coordinates: Coordinates
+}

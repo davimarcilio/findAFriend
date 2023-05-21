@@ -24,6 +24,7 @@ import {
   ResponseUniquePetUrl,
 } from '@/models/interfaces/ApiResponse'
 import { AxiosResponse } from 'axios'
+import { Coordinates, ResponseCoordinates } from '@/models/interfaces/Location'
 
 interface PetContextProviderProps {
   children: ReactNode
@@ -31,6 +32,7 @@ interface PetContextProviderProps {
 
 interface PetContextProps {
   isSubmitting: boolean
+  orgCoords: Coordinates
   petQuery: PetParams
   currentPet: CompletePet
   currentPetGallery: PetGallery[]
@@ -53,6 +55,7 @@ export function PetContextProvider({ children }: PetContextProviderProps) {
   const [size, setSize] = useState('' as PetSize)
   const [type, setType] = useState('' as PetType)
   const [pets, setPets] = useState([] as Pet[])
+  const [orgCoords, setOrgCoords] = useState({} as Coordinates)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [currentPet, setCurrentPet] = useState({} as CompletePet)
   const [currentPetGallery, setCurrentPetGallery] = useState<PetGallery[]>([])
@@ -78,6 +81,7 @@ export function PetContextProvider({ children }: PetContextProviderProps) {
     const response: AxiosResponse<ResponseUniquePetUrl> = await app.get(
       `/pets/show/${id}`,
     )
+    getPetOrgCoordinates(response.data.pet.org.cep)
     setCurrentPet(response.data.pet)
   }
 
@@ -88,6 +92,14 @@ export function PetContextProvider({ children }: PetContextProviderProps) {
 
     setCurrentPetGallery(response.data.pet_gallery)
     return response.data.pet_gallery[0].photo_url
+  }
+
+  async function getPetOrgCoordinates(cep: string) {
+    const response: AxiosResponse<ResponseCoordinates> = await app.get(
+      `/location/coordinates/${cep}`,
+    )
+
+    setOrgCoords(response.data.coordinates)
   }
 
   useEffect(() => {
@@ -124,6 +136,7 @@ export function PetContextProvider({ children }: PetContextProviderProps) {
   return (
     <PetContext.Provider
       value={{
+        orgCoords,
         currentPet,
         currentPetGallery,
         isSubmitting,
