@@ -78,28 +78,59 @@ export function PetContextProvider({ children }: PetContextProviderProps) {
   }
 
   async function getUniquePet(id: string) {
-    const response: AxiosResponse<ResponseUniquePetUrl> = await app.get(
-      `/pets/show/${id}`,
-    )
-    getPetOrgCoordinates(response.data.pet.org.cep)
-    setCurrentPet(response.data.pet)
+    try {
+      const response: AxiosResponse<ResponseUniquePetUrl> = await app.get(
+        `/pets/show/${id}`,
+      )
+      console.log(response.data.pet)
+
+      getPetOrgCoordinates(response.data.pet.org.cep)
+      setCurrentPet(response.data.pet)
+    } catch (error) {
+      console.log(error)
+
+      alertDispatch({
+        description: 'Buscar informações do pet',
+        action: 'error',
+        title: 'Erro',
+      })
+    }
   }
 
   async function getPetGallery(id: string) {
-    const response: AxiosResponse<ResponsePetUniqueGalleryUrl> = await app.get(
-      `/pets/gallery/${id}`,
-    )
+    try {
+      const response: AxiosResponse<ResponsePetUniqueGalleryUrl> =
+        await app.get(`/pets/gallery/${id}`)
 
-    setCurrentPetGallery(response.data.pet_gallery)
-    return response.data.pet_gallery[0].photo_url
+      setCurrentPetGallery(response.data.pet_gallery)
+      return response.data.pet_gallery[0].photo_url
+    } catch (error) {
+      console.log(error)
+
+      alertDispatch({
+        description: 'Buscar fotos do pet',
+        action: 'error',
+        title: 'Erro',
+      })
+    }
   }
 
   async function getPetOrgCoordinates(cep: string) {
-    const response: AxiosResponse<ResponseCoordinates> = await app.get(
-      `/location/coordinates/${cep}`,
-    )
+    try {
+      const response: AxiosResponse<ResponseCoordinates> = await app.get(
+        `/location/coordinates/${cep}`,
+      )
 
-    setOrgCoords(response.data.coordinates)
+      setOrgCoords(response.data.coordinates)
+      return response.data
+    } catch (error) {
+      console.log(error)
+      alertDispatch({
+        description: 'Carregar google maps',
+        action: 'error',
+        title: 'Erro',
+      })
+    }
   }
 
   useEffect(() => {
