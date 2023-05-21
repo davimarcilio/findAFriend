@@ -3,7 +3,9 @@ import { useContext, useEffect, useState } from 'react'
 import { useLocation, useParams } from 'react-router-dom'
 import * as RadioGroup from '@radix-ui/react-radio-group'
 import { PetContext } from '@/context/PetContext'
-import { Lightning } from 'phosphor-react'
+import { Circle, CornersIn, CornersOut, Lightning } from 'phosphor-react'
+import { PetIndependence, PetSize } from '@/models/interfaces/Pet'
+import { PropsSection } from './components/PropsSection'
 
 export function Pet() {
   const [currentSelectedImage, setCurrentSelectedImage] = useState('')
@@ -16,6 +18,52 @@ export function Pet() {
     getUniquePet(id)
     getPetGallery(id).then((url) => setCurrentSelectedImage(url))
   }, [location, id])
+
+  function formatIndependenceString(independence: PetIndependence) {
+    switch (independence) {
+      case 'low':
+        return 'Ambiente pequeno'
+      case 'high':
+        return 'Ambiente médio'
+      default:
+        return 'Ambiente amplo'
+    }
+  }
+
+  function formatIndependenceIcon(independence: PetIndependence) {
+    switch (independence) {
+      case 'low':
+        return <Circle className="text-blue-900" size={20} />
+      case 'high':
+        return <CornersIn className="text-blue-900" size={20} />
+      default:
+        return <CornersOut className="text-blue-900" size={20} />
+    }
+  }
+
+  function formatSize(size: PetSize) {
+    switch (size) {
+      case 'small':
+        return 0
+      case 'medium':
+        return 1
+      default:
+        return 2
+    }
+  }
+
+  function formatSizeString(size: PetSize) {
+    switch (size) {
+      case 'small':
+        return 'Pequenino'
+      case 'medium':
+        return 'Médio'
+      default:
+        return 'Grande'
+    }
+  }
+
+  console.log(currentPet)
 
   return (
     <main className="flex">
@@ -71,10 +119,7 @@ export function Pet() {
               className="mt-11 flex justify-between items-center"
               id="stats"
             >
-              <div
-                id="Energy"
-                className="flex flex-col justify-center items-start gap-1 border border-blue-900 border-opacity-20 w-fit rounded-3xl p-6"
-              >
+              <PropsSection id="Energy">
                 <div className="flex justify-start items-center">
                   {Array.from({ length: 5 }, (_, index) => index).map(
                     (energy) => (
@@ -97,30 +142,34 @@ export function Pet() {
                     ? 'Normal'
                     : 'Muita energia'}
                 </p>
-              </div>
-              <div
-                id="Independence"
-                className="flex flex-col justify-center items-start gap-1 border border-blue-900 border-opacity-20 w-fit rounded-3xl p-6"
-              >
+              </PropsSection>
+              <PropsSection id="Independence">
                 <div className="flex justify-start items-center">
-                  {Array.from({ length: 5 }, (_, index) => index).map(
-                    (energy) => (
-                      <Lightning
-                        weight={
-                          energy >= currentPet.energy ? 'fill' : 'regular'
-                        }
-                        opacity={energy >= currentPet.energy ? 0.3 : 1}
+                  {formatIndependenceIcon(currentPet.independence)}
+                </div>
+                <p className="text-blue-900 text-lg font-semibold">
+                  {formatIndependenceString(currentPet.independence)}
+                </p>
+              </PropsSection>
+
+              <PropsSection id="Size">
+                <div className="flex justify-start items-center">
+                  {Array.from({ length: 3 }, (_, index) => index).map(
+                    (Size) => (
+                      <Circle
+                        weight={'fill'}
+                        opacity={formatSize(currentPet.size) >= Size ? 1 : 0.3}
                         className="text-blue-900"
                         size={20}
-                        key={energy}
+                        key={Size}
                       />
                     ),
                   )}
                 </div>
                 <p className="text-blue-900 text-lg font-semibold">
-                  Muita energia
+                  {formatSizeString(currentPet.size)}
                 </p>
-              </div>
+              </PropsSection>
             </section>
           </div>
         </section>
