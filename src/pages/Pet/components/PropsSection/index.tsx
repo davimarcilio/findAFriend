@@ -1,5 +1,5 @@
 import { Circle, CornersIn, CornersOut, Lightning } from 'phosphor-react'
-import { PropContainer } from './PropContainer'
+import { PropContainer } from './components/PropContainer'
 import { CompletePet, PetIndependence, PetSize } from '@/models/interfaces/Pet'
 
 interface PropsSectionProps {

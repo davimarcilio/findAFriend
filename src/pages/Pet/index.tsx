@@ -4,9 +4,10 @@ import { useLocation, useParams } from 'react-router-dom'
 import * as RadioGroup from '@radix-ui/react-radio-group'
 import { PetContext } from '@/context/PetContext'
 import { MapSection } from './components/MapSection'
-import { PropsSection } from './components/PropsSection'
 import { PetInfoSection } from './components/PetInfoSection'
 import { PetOrgSection } from './components/PetOrgSection'
+import { PropsSection } from './components/PropsSection'
+import { RequirementsSection } from './components/RequirementsSection'
 export function Pet() {
   const [currentSelectedImage, setCurrentSelectedImage] = useState('')
   const { currentPet, currentPetGallery, getUniquePet, getPetGallery } =
@@ -63,7 +64,17 @@ export function Pet() {
               <PropsSection currentPet={currentPet} />
               <MapSection />
 
-              {currentPet.org && <PetOrgSection currentPet={currentPet} />}
+              {currentPet.org && (
+                <>
+                  <hr className="my-10" />
+
+                  <PetOrgSection currentPet={currentPet} />
+                  <hr className="my-10" />
+                </>
+              )}
+
+              <RequirementsSection />
+              <hr className="my-10" />
             </div>
           </section>
         </div>
