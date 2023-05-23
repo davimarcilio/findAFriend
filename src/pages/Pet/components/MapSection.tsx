@@ -44,9 +44,14 @@ export function MapSection() {
               />
             )}
           </GoogleMap>
-          <button className="font-bold text-lg text-yellow-500 my-5 cursor-pointer">
+          <a
+            target="_blank"
+            href={`https://www.google.com/maps/dir/?api=1&destination=${orgCoords.latitude},${orgCoords.longitude}`}
+            className="font-bold text-lg text-yellow-500 my-5 cursor-pointer"
+            rel="noreferrer"
+          >
             Ver rotas no Google Maps
-          </button>
+          </a>
         </>
       ) : (
         <Spinner className="w-20 h-20 my-10 text-white fill-red-700" />
