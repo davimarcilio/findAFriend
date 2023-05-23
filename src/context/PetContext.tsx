@@ -82,7 +82,6 @@ export function PetContextProvider({ children }: PetContextProviderProps) {
       const response: AxiosResponse<ResponseUniquePetUrl> = await app.get(
         `/pets/show/${id}`,
       )
-      console.log(response.data.pet)
 
       getPetOrgCoordinates(response.data.pet.org.cep)
       setCurrentPet(response.data.pet)
