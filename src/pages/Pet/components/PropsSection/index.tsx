@@ -52,7 +52,10 @@ function formatSizeString(size: PetSize) {
 
 export function PropsSection({ currentPet }: PropsSectionProps) {
   return (
-    <section className="mt-11 flex justify-between items-center" id="stats">
+    <section
+      className="mt-11 flex max-md:flex-col max-md:gap-4 justify-between items-center"
+      id="stats"
+    >
       <PropContainer id="Energy">
         <div className="flex justify-start items-center">
           {Array.from({ length: 5 }, (_, index) => index).map((energy) => (

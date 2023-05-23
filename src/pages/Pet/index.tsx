@@ -23,9 +23,9 @@ export function Pet() {
 
   if (currentPet) {
     return (
-      <main className="flex">
+      <main className="flex max-md:flex-col">
         <PetAside />
-        <div className="flex-1 flex flex-col items-center gap-10 bg-red-100 px-8 py-10 h-screen max-md:overflow-y-hidden overflow-y-auto home">
+        <div className="flex-1 flex flex-col items-center gap-10 bg-red-100 px-8 max-md:px-4 py-10 h-screen max-md:overflow-y-hidden overflow-y-auto home">
           <p className="text-blue-100 text-lg font-semibold">Seu novo amigo</p>
           <section className="flex flex-col max-w-3xl rounded-t-2xl w-full bg-white">
             <img
@@ -33,9 +33,10 @@ export function Pet() {
               src={currentSelectedImage}
               alt={currentPet.name}
             />
-            <div className="flex flex-col w-full px-16 py-8">
+            <div className="flex flex-col w-full px-16 max-md:px-6 py-8">
               {currentPetGallery.length > 0 && (
                 <RadioGroup.Root
+                  draggable
                   defaultValue={currentPetGallery[0].photo_url}
                   onValueChange={(value) => {
                     if (value) {
@@ -44,7 +45,7 @@ export function Pet() {
                       setCurrentSelectedImage(currentPet.photo_url)
                     }
                   }}
-                  className="flex gap-4 focus:shadow-none"
+                  className="flex gap-4 focus:shadow-none max-md:p-1 max-md:overflow-x-auto"
                 >
                   {currentPetGallery.map((image) => (
                     <RadioGroup.Item
@@ -75,8 +76,12 @@ export function Pet() {
               )}
 
               <RequirementsSection />
-              <hr className="my-10" />
-              <ContactSection />
+              {currentPet.org && (
+                <>
+                  <hr className="my-10" />
+                  <ContactSection currentPet={currentPet} />
+                </>
+              )}
             </div>
           </section>
         </div>

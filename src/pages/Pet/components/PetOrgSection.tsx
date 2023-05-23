@@ -16,7 +16,7 @@ export function PetOrgSection({ currentPet }: PetOrgSectionProps) {
 
   return (
     <section className="flex flex-col">
-      <div className="flex gap-4">
+      <div className="flex max-md:flex-col gap-4">
         <img
           className="bg-orange-600 max-w-[64] max-h-16 rounded-2xl p-4"
           src={Logo}

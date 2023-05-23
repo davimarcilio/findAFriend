@@ -7,9 +7,9 @@ export function PetAside() {
   const navigate = useNavigate()
 
   return (
-    <aside className="w-24 flex flex-col items-center justify-between h-screen sticky py-8 max-md:h-fit max-md:w-full max-md:overflow-y-hidden overflow-y-auto bg-red-500">
+    <aside className="w-24 flex flex-col items-center max-md:items-start max-md:px-5 max-md:gap-5 justify-between h-screen sticky py-8 max-md:h-fit max-md:w-full max-md:overflow-y-hidden overflow-y-auto bg-red-500">
       <img className="w-11" src={logo} alt="" />
-      <Button onClick={() => navigate('/map')} className="w-min">
+      <Button onClick={() => navigate('/map')} className="w-min max-md:w-full ">
         <ArrowLeft className="text-blue-900" size={30} />
       </Button>
     </aside>
