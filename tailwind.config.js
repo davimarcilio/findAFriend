@@ -73,6 +73,9 @@ export default {
           500: '#F15156',
           700: '#E44449',
         },
+        green: {
+          400: '#3CDC8C',
+        },
         yellow: {
           500: '#F4D35E',
         },

@@ -8,6 +8,7 @@ import { PetInfoSection } from './components/PetInfoSection'
 import { PetOrgSection } from './components/PetOrgSection'
 import { PropsSection } from './components/PropsSection'
 import { RequirementsSection } from './components/RequirementsSection'
+import { ContactSection } from './components/ContactSection'
 export function Pet() {
   const [currentSelectedImage, setCurrentSelectedImage] = useState('')
   const { currentPet, currentPetGallery, getUniquePet, getPetGallery } =
@@ -75,6 +76,7 @@ export function Pet() {
 
               <RequirementsSection />
               <hr className="my-10" />
+              <ContactSection />
             </div>
           </section>
         </div>
