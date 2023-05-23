@@ -2,6 +2,7 @@ import { PetContext } from '@/context/PetContext'
 import { useContext } from 'react'
 import { GoogleMap, MarkerF, useJsApiLoader } from '@react-google-maps/api'
 import Marker from '@/assets/icons/marker.svg'
+import { Spinner } from '@/components/Spinner'
 
 export function MapSection() {
   const { orgCoords } = useContext(PetContext)
@@ -48,7 +49,7 @@ export function MapSection() {
           </button>
         </>
       ) : (
-        <h1 className="text-xl font-bold text-yellow-500">Carregando</h1>
+        <Spinner className="w-20 h-20 my-10 text-white fill-red-700" />
       )}
     </section>
   )
