@@ -1,5 +1,7 @@
 import { app } from '@/lib/axios'
 import {
+  AdoptionPetRequirementsResponse,
+  AdoptionRequirements,
   CompletePet,
   Pet,
   PetAge,
@@ -31,6 +33,7 @@ interface PetContextProviderProps {
 }
 
 interface PetContextProps {
+  adoptionRequirements: AdoptionRequirements[]
   isSubmitting: boolean
   orgCoords: Coordinates
   petQuery: PetParams
@@ -59,6 +62,9 @@ export function PetContextProvider({ children }: PetContextProviderProps) {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [currentPet, setCurrentPet] = useState({} as CompletePet)
   const [currentPetGallery, setCurrentPetGallery] = useState<PetGallery[]>([])
+  const [adoptionRequirements, setAdoptionRequirements] = useState<
+    AdoptionRequirements[]
+  >([])
   const { user } = useContext(UserContext)
   const { alertDispatch } = useContext(AlertContext)
   function changePetAge(age: PetAge) {
@@ -82,14 +88,30 @@ export function PetContextProvider({ children }: PetContextProviderProps) {
       const response: AxiosResponse<ResponseUniquePetUrl> = await app.get(
         `/pets/show/${id}`,
       )
-
-      getPetOrgCoordinates(response.data.pet.org.cep)
+      await getPetRequirements(response.data.pet.id)
+      await getPetOrgCoordinates(response.data.pet.org.cep)
       setCurrentPet(response.data.pet)
     } catch (error) {
       console.log(error)
 
       alertDispatch({
         description: 'Buscar informações do pet',
+        action: 'error',
+        title: 'Erro',
+      })
+    }
+  }
+
+  async function getPetRequirements(petId: string) {
+    try {
+      const response: AxiosResponse<AdoptionPetRequirementsResponse> =
+        await app.get(`/pets/adoption-requirements/${petId}`)
+      setAdoptionRequirements(response.data.adoption_requirements)
+      return response.data.adoption_requirements
+    } catch (error) {
+      console.log(error)
+      alertDispatch({
+        description: 'Buscar requerimentos de adoção',
         action: 'error',
         title: 'Erro',
       })
@@ -166,6 +188,7 @@ export function PetContextProvider({ children }: PetContextProviderProps) {
   return (
     <PetContext.Provider
       value={{
+        adoptionRequirements,
         orgCoords,
         currentPet,
         currentPetGallery,
