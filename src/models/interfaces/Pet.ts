@@ -43,3 +43,13 @@ export interface PetGallery {
   petId: string
   photo_url: string
 }
+
+export interface AdoptionRequirements {
+  id: string
+  title: string
+  petId: string
+}
+
+export interface AdoptionPetRequirementsResponse {
+  adoption_requirements: AdoptionRequirements[]
+}
