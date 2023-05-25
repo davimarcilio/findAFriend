@@ -61,7 +61,7 @@ export function Aside() {
             <Button
               onClick={handleRegisterUserLocation}
               disabled={!city || !state || isSubmitting}
-              className="w-full transition-all"
+              className="w-full transition-all bg-yellow-500"
             >
               <img className="w-6" src={search} alt="ícone de lupa" />
             </Button>
