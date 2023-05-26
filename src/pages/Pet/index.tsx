@@ -11,8 +11,13 @@ import { RequirementsSection } from './components/RequirementsSection'
 import { ContactSection } from './components/ContactSection'
 export function Pet() {
   const [currentSelectedImage, setCurrentSelectedImage] = useState('')
-  const { currentPet, currentPetGallery, getUniquePet, getPetGallery } =
-    useContext(PetContext)
+  const {
+    currentPet,
+    currentPetGallery,
+    orgCoords,
+    getUniquePet,
+    getPetGallery,
+  } = useContext(PetContext)
   const { id } = useParams()
   const location = useLocation()
 
@@ -64,7 +69,7 @@ export function Pet() {
               )}
               <PetInfoSection currentPet={currentPet} />
               <PropsSection currentPet={currentPet} />
-              <MapSection />
+              <MapSection coords={orgCoords} />
 
               {currentPet.org && (
                 <>
