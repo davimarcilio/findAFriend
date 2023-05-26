@@ -64,7 +64,10 @@ export function Form() {
         }}
         disabled={!(cities.length > 0)}
       />
-      <Button className="max-sm:w-full" disabled={!state || !city}>
+      <Button
+        className="max-sm:w-full bg-yellow-500"
+        disabled={!state || !city}
+      >
         <MagnifyingGlass weight="bold" className="text-blue-900" size={26} />
       </Button>
     </form>
