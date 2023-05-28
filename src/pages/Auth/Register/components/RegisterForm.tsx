@@ -93,7 +93,7 @@ export function RegisterForm() {
         <InputForm
           {...register('zip')}
           label="CEP"
-          placeholder="13254-000"
+          placeholder="13254000"
           type="text"
           errorMessage={errors.zip?.message}
         />
