@@ -5,6 +5,9 @@ import { Map } from '@/components/Map'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { ChangeEvent, useEffect, useState } from 'react'
+import { app } from '@/lib/axios'
+import { Coordinates } from '@/models/interfaces/Location'
 
 const formSchemaValidator = z
   .object({
@@ -63,6 +66,23 @@ export function RegisterForm() {
   } = useForm<FormData>({
     resolver: zodResolver(formSchemaValidator),
   })
+  const [zip, setZip] = useState('')
+  const [address, setAddress] = useState('')
+  const [coordinates, setCoordinates] = useState({} as Coordinates)
+  const regex = /^[0-9]{8}$/
+
+  async function getCoordinatesByZip(zip: string) {
+    if (regex.test(zip)) {
+      const { data } = await app.get(`/location/coordinates/${zip}`)
+      setAddress(data.address)
+
+      setCoordinates(data.coordinates)
+    }
+  }
+
+  useEffect(() => {
+    getCoordinatesByZip(zip)
+  }, [zip])
 
   function onSubmit(data: FormData) {
     console.log(data)
@@ -95,6 +115,10 @@ export function RegisterForm() {
           label="CEP"
           placeholder="13254000"
           type="text"
+          onChange={(event: ChangeEvent<HTMLInputElement>) => {
+            setZip(event.target.value)
+          }}
+          value={zip}
           errorMessage={errors.zip?.message}
         />
         <InputForm
@@ -103,14 +127,33 @@ export function RegisterForm() {
           placeholder="Rua do meio"
           type="text"
           errorMessage={errors.address?.message}
+          onChange={(event: ChangeEvent<HTMLInputElement>) => {
+            setAddress(event.target.value)
+          }}
+          value={address}
         />
         <div className="border-2 border-dashed border-blue-900 rounded-2xl border-opacity-50">
-          <Map
-            coords={{
-              latitude: '-27.445166150794126',
-              longitude: '-48.40008290258068',
-            }}
-          />
+          {coordinates.latitude ? (
+            <Map
+              coords={{
+                latitude: coordinates.latitude,
+                longitude: coordinates.longitude,
+              }}
+            />
+          ) : (
+            <div
+              className="flex justify-center items-center text-opacity-80 font-semibold select-none text-blue-900"
+              style={{
+                width: '100%',
+                height: 225,
+                borderRadius: '1rem',
+              }}
+            >
+              {regex.test(zip)
+                ? 'Não foi possível carregar o mapa'
+                : 'Insira o CEP para carregar sua localização'}
+            </div>
+          )}
         </div>
         <InputForm
           {...register('phone')}

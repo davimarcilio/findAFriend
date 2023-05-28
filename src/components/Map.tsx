@@ -2,16 +2,23 @@ import { MarkerF, GoogleMap, useJsApiLoader } from '@react-google-maps/api'
 import Marker from '@/assets/icons/marker.svg'
 import { Coordinates } from '@/models/interfaces/Location'
 import { Spinner } from './Spinner'
+import { useEffect, useState } from 'react'
 
 interface MapProps {
   coords: Coordinates
 }
 export function Map({ coords }: MapProps) {
-  const latitude = Number(coords.latitude)
-  const longitude = Number(coords.longitude)
+  const [latitude, setLatitude] = useState(-27.445166150794126)
+  const [longitude, setLongitude] = useState(-48.40008290258068)
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API,
   })
+
+  useEffect(() => {
+    setLatitude(Number(coords.latitude))
+    setLongitude(Number(coords.longitude))
+  }, [coords.latitude, coords.longitude, coords])
+
   if (isLoaded) {
     return (
       <GoogleMap
