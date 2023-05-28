@@ -25,7 +25,7 @@ export const InputForm: React.FC<InputFormProps> = React.forwardRef(function (
         <div className="w-full h-min relative">
           <input
             ref={ref}
-            className="bg-blue-10 border border-blue-50 p-4 w-full rounded-xl placeholder:text-blue-900 text-lg font-semibold"
+            className="bg-blue-10 border border-blue-50 p-4 w-full rounded-xl placeholder:text-opacity-50 placeholder:text-blue-900 text-lg font-semibold"
             type={!isPasswordShow ? type : 'text'}
             placeholder={!isPasswordShow ? placeholder : label}
             {...props}
@@ -48,7 +48,7 @@ export const InputForm: React.FC<InputFormProps> = React.forwardRef(function (
         <input
           ref={ref}
           id={label}
-          className="bg-blue-10 border border-blue-50 p-4 rounded-xl placeholder:text-blue-900 text-lg font-semibold"
+          className="bg-blue-10 border border-blue-50 p-4 rounded-xl placeholder:text-opacity-50 placeholder:text-blue-900 text-lg font-semibold"
           type={type}
           placeholder={placeholder}
           {...props}
