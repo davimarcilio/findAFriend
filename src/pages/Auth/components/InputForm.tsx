@@ -1,15 +1,16 @@
 import { Eye, EyeSlash } from 'phosphor-react'
-import { InputHTMLAttributes, useState } from 'react'
+import React, { ClassAttributes, InputHTMLAttributes, useState } from 'react'
 
-interface InputFormProps extends InputHTMLAttributes<HTMLInputElement> {
+interface InputFormProps
+  extends InputHTMLAttributes<HTMLInputElement>,
+    ClassAttributes<HTMLInputElement> {
   label: string
+  errorMessage?: string
 }
-export function InputForm({
-  label,
-  type,
-  placeholder,
-  ...props
-}: InputFormProps) {
+export const InputForm: React.FC<InputFormProps> = React.forwardRef(function (
+  { label, errorMessage, placeholder, type, ...props },
+  ref,
+) {
   const [isPasswordShow, setIsPasswordShow] = useState(false)
 
   function handleChangePassword() {
@@ -23,11 +24,13 @@ export function InputForm({
       {type === 'password' ? (
         <div className="w-full h-min relative">
           <input
+            ref={ref}
             className="bg-blue-10 border border-blue-50 p-4 w-full rounded-xl placeholder:text-blue-900 text-lg font-semibold"
-            type={type}
-            placeholder={isPasswordShow ? placeholder : label}
+            type={!isPasswordShow ? type : 'text'}
+            placeholder={!isPasswordShow ? placeholder : label}
+            {...props}
           />
-          {isPasswordShow ? (
+          {!isPasswordShow ? (
             <EyeSlash
               className="absolute right-5 top-1/2 -translate-y-1/2 cursor-pointer"
               size={24}
@@ -43,6 +46,7 @@ export function InputForm({
         </div>
       ) : (
         <input
+          ref={ref}
           id={label}
           className="bg-blue-10 border border-blue-50 p-4 rounded-xl placeholder:text-blue-900 text-lg font-semibold"
           type={type}
@@ -50,6 +54,11 @@ export function InputForm({
           {...props}
         />
       )}
+      {errorMessage && (
+        <p className="font-semibold text-red-400 ">{errorMessage}</p>
+      )}
     </div>
   )
-}
+})
+
+InputForm.displayName = 'InputForm'
