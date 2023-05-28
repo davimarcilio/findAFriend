@@ -18,3 +18,7 @@ export interface ResponsePetUniqueGalleryUrl {
 export interface ResponseLocationStates {
   states: State[]
 }
+
+export interface ResponseError {
+  error: string
+}

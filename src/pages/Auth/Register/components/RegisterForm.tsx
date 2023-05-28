@@ -5,9 +5,12 @@ import { Map } from '@/components/Map'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { ChangeEvent, useEffect, useState } from 'react'
+import { ChangeEvent, useContext, useEffect, useState } from 'react'
 import { app } from '@/lib/axios'
 import { Coordinates } from '@/models/interfaces/Location'
+import { AlertContext } from '@/context/AlertContext'
+import { isAxiosError } from 'axios'
+import { ResponseError } from '@/models/interfaces/ApiResponse'
 
 const formSchemaValidator = z
   .object({
@@ -39,15 +42,15 @@ const formSchemaValidator = z
       })
       .min(8, 'Senha deve conter no minímo 8 caracteres')
       .max(50, 'Senha não pode conter mais de 50 caracteres'),
-    confirmPassword: z
+    passwordConfirm: z
       .string({
         required_error: 'Senha é obrigatório',
       })
       .min(8, 'Senha deve conter no minímo 8 caracteres')
       .max(50, 'Senha não pode conter mais de 50 caracteres'),
   })
-  .superRefine(({ confirmPassword, password }, ctx) => {
-    if (password !== confirmPassword) {
+  .superRefine(({ passwordConfirm, password }, ctx) => {
+    if (password !== passwordConfirm) {
       ctx.addIssue({
         code: 'custom',
         message: 'As senhas não conferem',
@@ -62,13 +65,17 @@ export function RegisterForm() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
+    setError,
   } = useForm<FormData>({
     resolver: zodResolver(formSchemaValidator),
   })
   const [zip, setZip] = useState('')
   const [address, setAddress] = useState('')
   const [coordinates, setCoordinates] = useState({} as Coordinates)
+
+  const { alertDispatch } = useContext(AlertContext)
+
   const regex = /^[0-9]{8}$/
 
   async function getCoordinatesByZip(zip: string) {
@@ -84,8 +91,25 @@ export function RegisterForm() {
     getCoordinatesByZip(zip)
   }, [zip])
 
-  function onSubmit(data: FormData) {
-    console.log(data)
+  async function onSubmit(data: FormData) {
+    try {
+      await app.post('/orgs', {
+        whatsappNumber: `+55${data.phone}`,
+        cep: data.zip,
+        ...data,
+      })
+    } catch (error) {
+      if (isAxiosError<ResponseError>(error)) {
+        alertDispatch({
+          action: 'error',
+          description: error.response.data.error,
+          title: 'Erro',
+        })
+        setError('root', {
+          message: error.response.data.error,
+        })
+      }
+    }
   }
 
   return (
@@ -170,17 +194,18 @@ export function RegisterForm() {
           errorMessage={errors.password?.message}
         />
         <InputForm
-          {...register('confirmPassword')}
+          {...register('passwordConfirm')}
           label="Confirmar Senha"
           placeholder="*********"
           type="password"
-          errorMessage={errors.confirmPassword?.message}
+          errorMessage={errors.passwordConfirm?.message}
         />
       </div>
       <div className="flex flex-col gap-4">
         <Button
           type="submit"
-          className="py-5  text-white font-extrabold text-xl bg-blue-900 "
+          className="py-5  text-white font-extrabold text-xl bg-blue-900"
+          disabled={isSubmitting}
         >
           Cadastrar
         </Button>
