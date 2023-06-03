@@ -9,18 +9,18 @@ import { OrgContextProvider } from './context/OrgContext'
 
 export function App() {
   return (
-    <AlertContextProvider>
-      <LocationContextProvider>
-        <UserContextProvider>
-          <PetContextProvider>
-            <OrgContextProvider>
-              <BrowserRouter>
+    <BrowserRouter>
+      <AlertContextProvider>
+        <LocationContextProvider>
+          <UserContextProvider>
+            <PetContextProvider>
+              <OrgContextProvider>
                 <Router />
-              </BrowserRouter>
-            </OrgContextProvider>
-          </PetContextProvider>
-        </UserContextProvider>
-      </LocationContextProvider>
-    </AlertContextProvider>
+              </OrgContextProvider>
+            </PetContextProvider>
+          </UserContextProvider>
+        </LocationContextProvider>
+      </AlertContextProvider>
+    </BrowserRouter>
   )
 }
