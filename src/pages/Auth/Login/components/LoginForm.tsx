@@ -2,35 +2,27 @@ import { Button } from '@/components/Button'
 import { Link } from 'react-router-dom'
 import { InputForm } from '../../components/InputForm'
 import { useForm } from 'react-hook-form'
-import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
-
-const formSchemaValidator = z.object({
-  email: z
-    .string({ required_error: 'Email é obrigatório' })
-    .email('Email inválido'),
-
-  password: z
-    .string({
-      required_error: 'Senha é obrigatório',
-    })
-    .min(8, 'Senha deve conter no minímo 8 caracteres')
-    .max(50, 'Senha não pode conter mais de 50 caracteres'),
-})
-
-type FormData = z.infer<typeof formSchemaValidator>
+import { useContext } from 'react'
+import {
+  LoginOrgFormData,
+  loginFormSchemaValidator,
+} from '@/validator/auth/LoginOrg'
+import { OrgContext } from '@/context/OrgContext'
 
 export function LoginForm() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
-  } = useForm<FormData>({
-    resolver: zodResolver(formSchemaValidator),
+    formState: { errors, isSubmitting },
+  } = useForm<LoginOrgFormData>({
+    resolver: zodResolver(loginFormSchemaValidator),
   })
 
-  function onSubmit(data: FormData) {
-    console.log(data)
+  const { onLoginOrg } = useContext(OrgContext)
+
+  async function onSubmit(data: LoginOrgFormData) {
+    onLoginOrg(data)
   }
 
   return (
@@ -57,6 +49,7 @@ export function LoginForm() {
       </div>
       <div className="flex flex-col gap-4">
         <Button
+          disabled={isSubmitting}
           type="submit"
           className="py-5  text-white font-extrabold text-xl bg-blue-900 "
         >
