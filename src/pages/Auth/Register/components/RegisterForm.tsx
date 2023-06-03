@@ -3,78 +3,30 @@ import { InputForm } from '../../components/InputForm'
 import { Link } from 'react-router-dom'
 import { Map } from '@/components/Map'
 import { useForm } from 'react-hook-form'
-import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { ChangeEvent, useContext, useEffect, useState } from 'react'
 import { app } from '@/lib/axios'
 import { Coordinates } from '@/models/interfaces/Location'
-import { AlertContext } from '@/context/AlertContext'
-import { isAxiosError } from 'axios'
-import { ResponseError } from '@/models/interfaces/ApiResponse'
-
-const formSchemaValidator = z
-  .object({
-    name: z
-      .string({
-        required_error: 'Nome é obrigatório',
-      })
-      .min(3, 'O nome deve conter pelo menos 3 caracteres')
-      .max(100, 'O nome deve conter no máximo 100 caracteres'),
-    email: z
-      .string({ required_error: 'Email é obrigatório' })
-      .email('Email inválido'),
-    zip: z
-      .string({
-        required_error: 'CEP é obrigatório',
-      })
-      .regex(/^[0-9]{8}$/, 'CEP inválido'),
-    address: z.string({
-      required_error: 'Endereço é obrigatório',
-    }),
-    phone: z
-      .string({
-        required_error: 'Telefone é obrigatório',
-      })
-      .min(11, 'Telefone inválido'),
-    password: z
-      .string({
-        required_error: 'Senha é obrigatório',
-      })
-      .min(8, 'Senha deve conter no minímo 8 caracteres')
-      .max(50, 'Senha não pode conter mais de 50 caracteres'),
-    passwordConfirm: z
-      .string({
-        required_error: 'Senha é obrigatório',
-      })
-      .min(8, 'Senha deve conter no minímo 8 caracteres')
-      .max(50, 'Senha não pode conter mais de 50 caracteres'),
-  })
-  .superRefine(({ passwordConfirm, password }, ctx) => {
-    if (password !== passwordConfirm) {
-      ctx.addIssue({
-        code: 'custom',
-        message: 'As senhas não conferem',
-        path: ['confirmPassword'],
-      })
-    }
-  })
-
-type FormData = z.infer<typeof formSchemaValidator>
+import {
+  RegisterOrgFormData,
+  registerFormSchemaValidator,
+} from '@/validator/auth/RegisterOrg'
+import { OrgContext } from '@/context/OrgContext'
 
 export function RegisterForm() {
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-    setError,
-  } = useForm<FormData>({
-    resolver: zodResolver(formSchemaValidator),
+  } = useForm<RegisterOrgFormData>({
+    resolver: zodResolver(registerFormSchemaValidator),
   })
+
+  const { onRegisterOrg } = useContext(OrgContext)
+
   const [zip, setZip] = useState('')
   const [address, setAddress] = useState('')
   const [coordinates, setCoordinates] = useState({} as Coordinates)
-
-  const { alertDispatch } = useContext(AlertContext)
 
   const regex = /^[0-9]{8}$/
 
@@ -91,25 +43,8 @@ export function RegisterForm() {
     getCoordinatesByZip(zip)
   }, [zip])
 
-  async function onSubmit(data: FormData) {
-    try {
-      await app.post('/orgs', {
-        whatsappNumber: `+55${data.phone}`,
-        cep: data.zip,
-        ...data,
-      })
-    } catch (error) {
-      if (isAxiosError<ResponseError>(error)) {
-        alertDispatch({
-          action: 'error',
-          description: error.response.data.error,
-          title: 'Erro',
-        })
-        setError('root', {
-          message: error.response.data.error,
-        })
-      }
-    }
+  async function onSubmit(data: RegisterOrgFormData) {
+    onRegisterOrg(data)
   }
 
   return (
