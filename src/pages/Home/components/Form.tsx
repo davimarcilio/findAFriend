@@ -1,6 +1,6 @@
 import * as Label from '@radix-ui/react-label'
 import { MagnifyingGlass } from 'phosphor-react'
-import { FormEvent, useContext, useState } from 'react'
+import { FormEvent, useContext, useEffect, useState } from 'react'
 import { Button } from '@/components/Button'
 import { SelectComponent } from '@/components/Select'
 import { LocationContext } from '@/context/LocationContext'
@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom'
 
 export function Form() {
   const { cities, states, getCitiesByState } = useContext(LocationContext)
-  const { registerUserLocation } = useContext(UserContext)
+  const { registerUserLocation, user } = useContext(UserContext)
 
   const [state, setState] = useState('')
   const [city, setCity] = useState('')
@@ -27,13 +27,25 @@ export function Form() {
 
   function handleGetCitiesByState(state: string) {
     setCity('')
-    getCitiesByState(state)
+    if (state) {
+      getCitiesByState(state)
+    }
     setState(state)
   }
 
   function handleGetCity(city: string) {
     setCity(city)
   }
+
+  useEffect(() => {
+    if (user.state && user.state !== state) {
+      setState(user.state)
+      handleGetCitiesByState(user.state)
+    }
+    if (user.city && user.city !== city) {
+      setCity(user.city)
+    }
+  }, [user])
 
   return (
     <form
@@ -47,6 +59,7 @@ export function Form() {
         id="UF_ID"
         name="UF"
         selectLabel="Selecione seu estado"
+        value={states.length > 0 && state ? state : undefined}
         options={states}
         onValueChange={(value) => {
           handleGetCitiesByState(value)
@@ -58,6 +71,7 @@ export function Form() {
         id="CITY_ID"
         name="Cidade"
         selectLabel="Selecione sua cidade"
+        value={cities.length > 0 && city ? city : undefined}
         options={cities}
         onValueChange={(value) => {
           handleGetCity(value)

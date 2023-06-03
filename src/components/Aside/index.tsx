@@ -4,7 +4,7 @@ import logo from '@/assets/icons/logo.svg'
 import search from '@/assets/icons/search.svg'
 import { Button } from '../Button'
 import { SelectComponent } from '../Select'
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { LocationContext } from '@/context/LocationContext'
 
 import { UserContext } from '@/context/UserContext'
@@ -27,6 +27,16 @@ export function Aside() {
     registerUserLocation({ state, city })
   }
 
+  useEffect(() => {
+    if (user.state && user.state !== state) {
+      setState(user.state)
+      handleGetCitiesByState(user.state)
+    }
+    if (user.city && user.city !== city) {
+      setCity(user.city)
+    }
+  }, [user])
+
   return (
     <aside className="w-96 h-screen sticky max-md:h-fit max-md:w-full max-md:overflow-y-hidden overflow-y-auto bg-red-500">
       <div className=" bg-red-700">
@@ -39,7 +49,7 @@ export function Aside() {
               selectLabel="Selecione um estado"
               className="flex justify-between hover:opacity-90 transition-all items-center border border-red-500 bg-transparent font-bold gap-1 py-4 px-10 rounded-2xl"
               options={states}
-              defaultValue={user.state}
+              value={states.length > 0 && state ? state : undefined}
               onValueChange={(value) => {
                 handleGetCitiesByState(value)
               }}
@@ -51,7 +61,7 @@ export function Aside() {
               name="Cidade"
               selectLabel="Selecione sua cidade"
               options={cities}
-              defaultValue={user.city}
+              value={cities.length > 0 && city ? city : undefined}
               disabled={!(cities.length > 0)}
               onValueChange={(value) => {
                 setCity(value)

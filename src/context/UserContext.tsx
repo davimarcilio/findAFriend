@@ -1,4 +1,4 @@
-import { ReactNode, createContext, useState } from 'react'
+import { ReactNode, createContext, useEffect, useState } from 'react'
 
 interface UserContextProviderProps {
   children: ReactNode
@@ -18,6 +18,26 @@ export const UserContext = createContext({} as UserContextProps)
 
 export function UserContextProvider({ children }: UserContextProviderProps) {
   const [user, setUser] = useState({} as UserProps)
+
+  useEffect(() => {
+    const userCityOnLocalStorage = localStorage.getItem('user-location-city')
+    const userStateOnLocalStorage = localStorage.getItem('user-location-state')
+    if (userCityOnLocalStorage && userStateOnLocalStorage) {
+      setUser({
+        city: userCityOnLocalStorage,
+        state: userStateOnLocalStorage,
+      })
+    }
+    if (
+      user.city &&
+      user.state &&
+      userCityOnLocalStorage !== user.city &&
+      userStateOnLocalStorage !== user.state
+    ) {
+      localStorage.setItem('user-location-city', user.city)
+      localStorage.setItem('user-location-state', user.state)
+    }
+  }, [user])
 
   function registerUserLocation({ city, state }: UserProps) {
     setUser({ city, state })
