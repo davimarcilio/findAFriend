@@ -5,6 +5,7 @@ import { LocationContextProvider } from './context/LocationContext'
 import { AlertContextProvider } from './context/AlertContext'
 import { UserContextProvider } from './context/UserContext'
 import { PetContextProvider } from './context/PetContext'
+import { OrgContextProvider } from './context/OrgContext'
 
 export function App() {
   return (
@@ -12,9 +13,11 @@ export function App() {
       <LocationContextProvider>
         <UserContextProvider>
           <PetContextProvider>
-            <BrowserRouter>
-              <Router />
-            </BrowserRouter>
+            <OrgContextProvider>
+              <BrowserRouter>
+                <Router />
+              </BrowserRouter>
+            </OrgContextProvider>
           </PetContextProvider>
         </UserContextProvider>
       </LocationContextProvider>
