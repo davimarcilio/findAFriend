@@ -15,16 +15,23 @@ export function Home() {
             <img className="h-14" src={Logo} alt="" />
             <h1 className="font-bold text-xl">FindAFriend</h1>
           </div>
-          {!token && (
-            <div className="flex self-start justify-center items-center gap-3">
+          <div className="flex self-start justify-center items-center gap-3">
+            {!token ? (
               <Link
                 to={'/login'}
                 className="text-slate-800 font-bold bg-yellow-500 p-2 rounded-lg flex justify-center items-center hover:opacity-80 transition-all"
               >
                 Entrar
               </Link>
-            </div>
-          )}
+            ) : (
+              <Link
+                to={'/admin'}
+                className="text-slate-800 font-bold bg-yellow-500 p-2 rounded-lg flex justify-center items-center hover:opacity-80 transition-all"
+              >
+                Administrar Organização
+              </Link>
+            )}
+          </div>
         </header>
         <section className="flex justify-between max-lg:flex-col items-center max-lg:gap-6 w-full">
           <h1 className="font-extrabold text-7xl max-sm:text-5xl leading-[90%] max-lg:self-start self-end max-w-lg max-lg:max-w-none">

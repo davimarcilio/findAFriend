@@ -22,3 +22,7 @@ export interface ResponseLocationStates {
 export interface ResponseError {
   error: string
 }
+
+export interface ResponseValidateToken {
+  token: string
+}

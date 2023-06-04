@@ -42,13 +42,33 @@ export function OrgContextProvider({ children }: OrgContextProviderProps) {
 
     if (tokenOnLocalStorage && !token) {
       setToken(tokenOnLocalStorage)
-      navigate('/map')
+      navigate('/')
     }
 
     if (token && token !== tokenOnLocalStorage) {
       localStorage.setItem('authorization', token)
     }
   }, [token])
+
+  // async function validateToken(token: string) {
+  //   try {
+  //     const { data } = await app.patch<ResponseValidateToken>(
+  //       '/auth/refresh-token',
+  //       {
+  //         token,
+  //       },
+  //     )
+  //     localStorage.setItem('authorization', data.token)
+  //     setToken(data.token)
+  //     navigate('/map')
+  //   } catch (error) {
+  //     console.error('Revalidate Error', error)
+  //     if (isAxiosError<ResponseError>(error)) {
+  //       localStorage.removeItem('authorization')
+  //       setToken('')
+  //     }
+  //   }
+  // }
 
   async function onLoginOrg(body: LoginOrgFormData) {
     try {
@@ -60,7 +80,7 @@ export function OrgContextProvider({ children }: OrgContextProviderProps) {
         description: 'Com sucesso',
         title: 'Login',
       })
-      navigate('/map')
+      navigate('/')
     } catch (error) {
       console.error('Login', error)
       if (isAxiosError<ResponseError>(error)) {
