@@ -10,6 +10,7 @@ interface SelectComponentProps extends ComponentProps<typeof Select.Root> {
   id: string
   className: string
   label?: string
+  labelClassName?: string
   options: OptionsProps[]
 }
 
@@ -20,12 +21,17 @@ export function SelectComponent({
   className,
   options,
   label,
+  labelClassName,
   ...props
 }: SelectComponentProps) {
   return (
     <Select.Root {...props} required name={name}>
       <div className="flex flex-col gap-3 max-sm:w-full text-xs font-medium">
-        {label && <Label.Root htmlFor={id}>{label}</Label.Root>}
+        {label && (
+          <Label.Root className={labelClassName} htmlFor={id}>
+            {label}
+          </Label.Root>
+        )}
 
         <Select.Trigger
           name={name}
