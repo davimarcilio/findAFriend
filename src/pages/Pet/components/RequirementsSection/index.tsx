@@ -1,6 +1,6 @@
 import { useContext } from 'react'
-import { RequirementCard } from './components/RequirementCard'
 import { PetContext } from '@/context/PetContext'
+import { RequirementCard } from '@/components/RequirementCard'
 
 export function RequirementsSection() {
   const { adoptionRequirements } = useContext(PetContext)

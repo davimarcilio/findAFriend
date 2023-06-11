@@ -1,20 +1,20 @@
 import { PetAside } from '@/components/PetAside'
 import { OrgContext } from '@/context/OrgContext'
-import { useContext, useEffect } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useContext } from 'react'
+import { Link } from 'react-router-dom'
 import Logo from '@/assets/icons/logo.svg'
 import { Plus } from 'phosphor-react'
 export function Admin() {
   const { token } = useContext(OrgContext)
-  const navigate = useNavigate()
-  useEffect(() => {
-    if (!token) {
-      navigate('/')
-    }
-  }, [token])
+  // const navigate = useNavigate()
+  // useEffect(() => {
+  //   if (!token) {
+  //     navigate('/')
+  //   }
+  // }, [token])
   if (!token) {
     return (
-      <main className="flex flex-col w-screen h-screen">
+      <main className="flex flex-col w-screen h-screen justify-center items-center">
         <h1 className="font-extrabold text-6xl text-black">Sem autorização</h1>
       </main>
     )

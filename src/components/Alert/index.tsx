@@ -38,7 +38,7 @@ export function Alert({
       <Toast.Root
         onClick={handleCloseAlert}
         open={open}
-        className={`absolute bottom-5 right-5 ${classAction} border-2 border-black flex flex-col justify-center items-start max-w-xs py-2 px-10 transition-all rounded-2xl 
+        className={`fixed bottom-5 right-5 ${classAction} border-2 border-black flex flex-col justify-center items-start max-w-xs py-2 px-10 transition-all rounded-2xl 
         data-[state=open]:animate-open-alert 
         data-[state=closed]:animate-close-alert 
         data-[swipe=move]:translate-x-{var(--radix-toast-swipe-move-x)} 
