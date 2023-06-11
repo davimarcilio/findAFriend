@@ -11,11 +11,11 @@ export function Home() {
     <main className="w-screen h-screen bg-red-500 flex justify-center px-5 items-center">
       <div className="max-w-7xl max-h-[572px] max-lg:max-h-none py-10 h-full max-lg:gap-6 flex justify-between max-sm:justify-center items-center flex-col">
         <header className="flex w-full justify-between items-center">
-          <div className="flex self-start justify-center items-center gap-3">
+          <div className="flex self-start justify-center items-center max-md:self-center gap-3">
             <img className="h-14" src={Logo} alt="" />
             <h1 className="font-bold text-xl">FindAFriend</h1>
           </div>
-          <div className="flex self-start justify-center items-center gap-3">
+          <div className="flex self-start justify-center items-center gap-3 max-md:self-center">
             {!token ? (
               <Link
                 to={'/login'}

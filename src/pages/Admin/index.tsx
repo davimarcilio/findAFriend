@@ -20,13 +20,13 @@ export function Admin() {
     )
   }
   return (
-    <main className="flex gap-10 bg-red-100">
+    <main className="flex max-md:flex-col gap-10 bg-red-100">
       <PetAside />
       <section className="w-full flex flex-col items-center justify-start py-10">
         <h1 className="text-lg font-semibold text-blue-100">
           Administrar sua organização
         </h1>
-        <div className="grid grid-cols-3 gap-10">
+        <div className="grid grid-cols-3 max-md:grid-cols-1 gap-10">
           <Link
             className="flex justify-center items-center p-10 font-extrabold text-2xl rounded-3xl bg-red-500 h-fit mt-10 gap-5 hover:opacity-70 transition-all"
             to={'/admin/pet'}

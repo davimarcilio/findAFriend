@@ -1,6 +1,6 @@
 import { Button } from '@/components/Button'
 import { Link } from 'react-router-dom'
-import { InputForm } from '../../components/InputForm'
+import { InputForm } from '../../../../components/InputForm'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useContext } from 'react'

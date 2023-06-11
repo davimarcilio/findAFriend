@@ -1,5 +1,5 @@
 import { Button } from '@/components/Button'
-import { InputForm } from '../../components/InputForm'
+import { InputForm } from '../../../../components/InputForm'
 import { Link } from 'react-router-dom'
 import { Map } from '@/components/Map'
 import { useForm } from 'react-hook-form'
