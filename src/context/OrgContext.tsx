@@ -42,7 +42,6 @@ export function OrgContextProvider({ children }: OrgContextProviderProps) {
 
     if (tokenOnLocalStorage && !token) {
       setToken(tokenOnLocalStorage)
-      navigate('/')
     }
 
     if (token && token !== tokenOnLocalStorage) {

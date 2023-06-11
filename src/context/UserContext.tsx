@@ -22,7 +22,13 @@ export function UserContextProvider({ children }: UserContextProviderProps) {
   useEffect(() => {
     const userCityOnLocalStorage = localStorage.getItem('user-location-city')
     const userStateOnLocalStorage = localStorage.getItem('user-location-state')
-    if (userCityOnLocalStorage && userStateOnLocalStorage) {
+
+    if (
+      userCityOnLocalStorage &&
+      userStateOnLocalStorage &&
+      !user.city &&
+      !user.state
+    ) {
       setUser({
         city: userCityOnLocalStorage,
         state: userStateOnLocalStorage,

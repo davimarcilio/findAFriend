@@ -45,7 +45,7 @@ export function Form() {
     if (user.city && user.city !== city) {
       setCity(user.city)
     }
-  }, [user])
+  }, [user, states, cities])
 
   return (
     <form
