@@ -54,11 +54,11 @@ export function OrgContextProvider({ children }: OrgContextProviderProps) {
       validateToken(tokenOnLocalStorage)
     }
 
-    if (orgOnLocalStorage.email && !org.email) {
+    if (orgOnLocalStorage?.email && !org?.email) {
       setOrg(orgOnLocalStorage)
     }
 
-    if (org.email && org.email !== orgOnLocalStorage.email) {
+    if (org?.email && org?.email !== orgOnLocalStorage?.email) {
       localStorage.setItem('organization', JSON.stringify(org))
     }
 
@@ -104,7 +104,6 @@ export function OrgContextProvider({ children }: OrgContextProviderProps) {
     localStorage.removeItem('authorization')
     setOrg(undefined)
     setToken('')
-    navigate('/')
   }
 
   async function onLoginOrg(body: LoginOrgFormData) {
