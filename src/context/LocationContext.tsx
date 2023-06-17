@@ -1,4 +1,4 @@
-import { app } from '@/lib/axios'
+import { api } from '@/lib/axios'
 import { City, State } from '@/models/interfaces/Location'
 import { OptionsProps } from '@/models/interfaces/Select'
 import {
@@ -34,7 +34,7 @@ export function LocationContextProvider({
   const [cities, setCities] = useState<OptionsProps[]>([])
   async function getStates() {
     try {
-      const response: AxiosResponse<ResponseLocationStates> = await app.get(
+      const response: AxiosResponse<ResponseLocationStates> = await api.get(
         '/location/states',
       )
       const treatedResponse = response.data.states.map((state: State) => {
@@ -55,7 +55,7 @@ export function LocationContextProvider({
   async function getCitiesByState(state: string) {
     try {
       setCities([])
-      const response: AxiosResponse<ResponseLocationCities> = await app.get(
+      const response: AxiosResponse<ResponseLocationCities> = await api.get(
         `/location/citys/${state}`,
       )
 

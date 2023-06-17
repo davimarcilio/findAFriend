@@ -5,7 +5,7 @@ import { Map } from '@/components/Map'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { ChangeEvent, useContext, useEffect, useState } from 'react'
-import { app } from '@/lib/axios'
+import { api } from '@/lib/axios'
 import { Coordinates } from '@/models/interfaces/Location'
 import {
   RegisterOrgFormData,
@@ -32,7 +32,7 @@ export function RegisterForm() {
 
   async function getCoordinatesByZip(zip: string) {
     if (regex.test(zip)) {
-      const { data } = await app.get(`/location/coordinates/${zip}`)
+      const { data } = await api.get(`/location/coordinates/${zip}`)
       setAddress(data.address)
 
       setCoordinates(data.coordinates)

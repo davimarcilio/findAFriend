@@ -1,4 +1,4 @@
-import { app } from '@/lib/axios'
+import { api } from '@/lib/axios'
 import {
   AdoptionPetRequirementsResponse,
   AdoptionRequirements,
@@ -85,7 +85,7 @@ export function PetContextProvider({ children }: PetContextProviderProps) {
 
   async function getUniquePet(id: string) {
     try {
-      const response: AxiosResponse<ResponseUniquePetUrl> = await app.get(
+      const response: AxiosResponse<ResponseUniquePetUrl> = await api.get(
         `/pets/show/${id}`,
       )
       await getPetRequirements(response.data.pet.id)
@@ -105,7 +105,7 @@ export function PetContextProvider({ children }: PetContextProviderProps) {
   async function getPetRequirements(petId: string) {
     try {
       const response: AxiosResponse<AdoptionPetRequirementsResponse> =
-        await app.get(`/pets/adoption-requirements/${petId}`)
+        await api.get(`/pets/adoption-requirements/${petId}`)
       setAdoptionRequirements(response.data.adoption_requirements)
       return response.data.adoption_requirements
     } catch (error) {
@@ -121,7 +121,7 @@ export function PetContextProvider({ children }: PetContextProviderProps) {
   async function getPetGallery(id: string) {
     try {
       const response: AxiosResponse<ResponsePetUniqueGalleryUrl> =
-        await app.get(`/pets/gallery/${id}`)
+        await api.get(`/pets/gallery/${id}`)
 
       setCurrentPetGallery(response.data.pet_gallery)
       return response.data.pet_gallery[0].photo_url
@@ -138,7 +138,7 @@ export function PetContextProvider({ children }: PetContextProviderProps) {
 
   async function getPetOrgCoordinates(cep: string) {
     try {
-      const response: AxiosResponse<ResponseCoordinates> = await app.get(
+      const response: AxiosResponse<ResponseCoordinates> = await api.get(
         `/location/coordinates/${cep}`,
       )
 
@@ -158,7 +158,7 @@ export function PetContextProvider({ children }: PetContextProviderProps) {
     async function getPets() {
       try {
         setIsSubmitting(true)
-        const response: AxiosResponse<ResponsePetUrl> = await app.get(
+        const response: AxiosResponse<ResponsePetUrl> = await api.get(
           `/pets/${user.city ?? 'Sao Paulo'}`,
           {
             params: {
