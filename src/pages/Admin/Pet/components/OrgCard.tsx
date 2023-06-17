@@ -1,22 +1,28 @@
 import Logo from '@/assets/icons/logo.svg'
 import { Button } from '@/components/Button'
+import { OrgContext } from '@/context/OrgContext'
 import { SignOut } from 'phosphor-react'
+import { useContext } from 'react'
 
 export function OrgCard() {
+  const { onSignOut, org } = useContext(OrgContext)
+
+  function handleSignOut() {
+    onSignOut()
+  }
+
   return (
-    <section className="flex justify-between w-full py-8 px-20 bg-blue-900 rounded-3xl">
+    <section className="flex justify-between w-full py-8 px-20 bg-blue-900 rounded-3xl gap-4">
       <img
         className="bg-orange-600 max-w-[64] max-h-16 rounded-2xl p-4"
         src={Logo}
         alt=""
       />
-      <div className="flex flex-col justify-center items-start font-Nunito">
-        <h1 className="text-3xl font-bold">Seu Cãopanheiro</h1>
-        <p className="font-semibold text-base">
-          Rua do meio, 123 , Boa viagem, Recife - PE
-        </p>
+      <div className="flex flex-1 flex-col justify-center items-start font-Nunito">
+        <h1 className="text-3xl font-bold">{org.nome}</h1>
+        <p className="font-semibold text-base">{org.address}</p>
       </div>
-      <Button className="bg-blue-800 px-5">
+      <Button onClick={handleSignOut} className="bg-blue-800 px-5">
         <SignOut weight="bold" size={24} />
       </Button>
     </section>
