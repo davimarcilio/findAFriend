@@ -2,17 +2,30 @@ import { Button } from '@/components/Button'
 import { InputForm } from '@/components/InputForm'
 import { RequirementCard } from '@/components/RequirementCard'
 import { Plus } from 'phosphor-react'
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react'
 
-export function RequirementSection() {
+interface RequirementSectionProps {
+  requirements: string[]
+  setRequirements: Dispatch<SetStateAction<string[]>>
+  errorMessage?: string
+}
+
+export function RequirementSection({
+  requirements,
+  setRequirements,
+  errorMessage,
+}: RequirementSectionProps) {
   const [requirement, setRequirement] = useState('')
-  const [requirements, setRequirements] = useState<string[]>([])
 
   function handleAddNewRequirement(requirement: string) {
     if (requirement) {
       setRequirements((state) => [...state, requirement])
       setRequirement('')
     }
+  }
+
+  function onDeleteRequirement(requirement: string) {
+    setRequirements((state) => state.filter((x) => x !== requirement))
   }
 
   return (
@@ -34,8 +47,16 @@ export function RequirementSection() {
         >
           <Plus className="text-red-700" size={16} />
         </Button>
+        {errorMessage && (
+          <p className="font-semibold text-red-400 ">{errorMessage}</p>
+        )}
         {requirements.map((requirement, index) => (
-          <RequirementCard key={index} description={requirement} />
+          <RequirementCard
+            key={index}
+            description={requirement}
+            hasDeleteOption={true}
+            onDeleteRequirement={onDeleteRequirement}
+          />
         ))}
       </div>
     </section>
