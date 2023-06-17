@@ -10,7 +10,7 @@ export function PetOrgSection({ currentPet }: PetOrgSectionProps) {
   const numero = currentPet.org.whatsappNumber
 
   const formatNumber = numero.replace(
-    /^(\+\d{2})(\d{2})(\d{4})(\d{4})$/,
+    /^(\+\d{2})(\d{2})(\d{5})(\d{4})$/,
     '$1 $2  $3 - $4',
   )
 
@@ -29,7 +29,7 @@ export function PetOrgSection({ currentPet }: PetOrgSectionProps) {
               {currentPet.org.address}, {currentPet.city}
             </p>
           </div>
-          <span className="flex gap-2 text-blue-900 justify-center items-center text-lg bg-blue-900 bg-opacity-10 py-3 rounded-xl">
+          <span className="flex gap-2 text-blue-900 justify-center items-center text-lg bg-blue-900 bg-opacity-10 py-3 px-2 rounded-xl">
             <WhatsappLogo weight="fill" size={24} />
             {formatNumber}
           </span>

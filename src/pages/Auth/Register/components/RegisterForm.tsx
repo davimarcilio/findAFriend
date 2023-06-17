@@ -14,19 +14,21 @@ import {
 import { OrgContext } from '@/context/OrgContext'
 
 export function RegisterForm() {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isSubmitting },
-  } = useForm<RegisterOrgFormData>({
-    resolver: zodResolver(registerFormSchemaValidator),
-  })
-
   const { onRegisterOrg } = useContext(OrgContext)
 
   const [zip, setZip] = useState('')
   const [address, setAddress] = useState('')
   const [coordinates, setCoordinates] = useState({} as Coordinates)
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<RegisterOrgFormData>({
+    values: {
+      address,
+    },
+    resolver: zodResolver(registerFormSchemaValidator),
+  })
 
   const regex = /^[0-9]{8}$/
 

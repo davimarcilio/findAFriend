@@ -3,12 +3,14 @@ import { Button } from '@/components/Button'
 import { OrgContext } from '@/context/OrgContext'
 import { SignOut } from 'phosphor-react'
 import { useContext } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 export function OrgCard() {
   const { onSignOut, org } = useContext(OrgContext)
-
+  const navigate = useNavigate()
   function handleSignOut() {
     onSignOut()
+    navigate('/')
   }
 
   return (
