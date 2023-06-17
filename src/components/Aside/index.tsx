@@ -12,11 +12,17 @@ import { PetContext } from '@/context/PetContext'
 import * as Accordion from '@radix-ui/react-accordion'
 import { Funnel } from 'phosphor-react'
 import { Filter } from './components/Filter'
+import { OrgContext } from '@/context/OrgContext'
+import { useNavigate } from 'react-router-dom'
 
 export function Aside() {
   const { states, cities, getCitiesByState } = useContext(LocationContext)
   const { registerUserLocation, user } = useContext(UserContext)
   const { isSubmitting } = useContext(PetContext)
+  const { token } = useContext(OrgContext)
+
+  const navigate = useNavigate()
+
   function handleGetCitiesByState(state: string) {
     getCitiesByState(state)
     setState(state)
@@ -75,6 +81,15 @@ export function Aside() {
             >
               <img className="w-6" src={search} alt="ícone de lupa" />
             </Button>
+
+            {token && (
+              <Button
+                onClick={() => navigate('/admin')}
+                className="w-full transition-all bg-blue-900 font-bold"
+              >
+                Administrar organização
+              </Button>
+            )}
           </div>
         </div>
       </div>
