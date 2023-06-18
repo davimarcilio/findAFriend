@@ -38,12 +38,12 @@ export function Form() {
   }
 
   useEffect(() => {
-    if (user.state && user.state !== state) {
+    if (user.state && !state) {
       setState(user.state)
-      handleGetCitiesByState(user.state)
     }
-    if (user.city && user.city !== city) {
-      setCity(user.city)
+    setCity(user.city)
+    if (user.state === state && cities.length === 0) {
+      getCitiesByState(user.state)
     }
   }, [user, states, cities])
 
