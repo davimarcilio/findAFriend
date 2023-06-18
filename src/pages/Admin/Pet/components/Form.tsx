@@ -99,7 +99,7 @@ export function Form() {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col gap-6 w-full max-w-3xl bg-white border border-blue-50 rounded-3xl py-16 px-20"
+      className="flex flex-col gap-6 w-full max-w-3xl bg-white border border-blue-50 rounded-3xl py-16 px-20 max-md:px-5"
     >
       <h1 className="text-blue-900 font-extrabold text-4xl">Adicione um pet</h1>
       <hr />
@@ -204,8 +204,6 @@ export function Form() {
         </p>
       )}
       <SelectComponent
-        // {...register('')}
-
         labelClassName="font-semibold text-blue-900 text-base"
         selectLabel="Ambiente"
         label="Ambiente"

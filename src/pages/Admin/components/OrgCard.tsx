@@ -14,7 +14,7 @@ export function OrgCard() {
   }
 
   return (
-    <section className="flex justify-between w-full py-8 px-20 bg-blue-900 rounded-3xl gap-4">
+    <section className="flex justify-between w-full py-8 px-20 bg-blue-900 rounded-3xl gap-4 max-md:flex-col max-md:px-10 ">
       <img
         className="bg-orange-600 max-w-[64] max-h-16 rounded-2xl p-4"
         src={Logo}

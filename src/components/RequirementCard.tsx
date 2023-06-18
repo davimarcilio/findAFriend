@@ -24,7 +24,7 @@ export function RequirementCard({
       className="border w-full gap-3 flex justify-between items-center text-red-500 border-red-500 rounded-lg py-4 px-10 max-md:px-4"
     >
       <WarningCircle className="max-md:hidden" size={24} />
-      <p className="font-semibold text-lg flex-1">{description}</p>
+      <p className="font-semibold text-lg flex-1 truncate">{description}</p>
       {hasDeleteOption && (
         <button
           onClick={() => handleDeleteRequirement(description)}

@@ -7,7 +7,7 @@ export function AdminPet() {
     <main className="flex max-md:flex-col bg-red-100">
       <PetAside />
       <section className="flex-1  flex flex-col items-center overflow-y-auto h-screen py-10 home">
-        <div className="flex flex-col w-full max-w-3xl gap-7">
+        <div className="flex flex-col w-full max-w-3xl gap-7 max-md:px-5">
           <OrgCard />
           <Form />
         </div>

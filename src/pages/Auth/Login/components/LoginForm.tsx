@@ -28,10 +28,10 @@ export function LoginForm() {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col gap-16 text-blue-900 max-w-lg flex-1"
+      className="flex flex-col gap-16 text-blue-900 max-w-lg flex-1 max-md:z-20 max-md:justify-center max-md:w-full max-md:px-10 max-md:items-center"
     >
-      <h1 className="text-6xl font-bold">Boas-vindas!</h1>
-      <div className="flex flex-col gap-4">
+      <h1 className="text-6xl font-bold max-md:hidden">Boas-vindas!</h1>
+      <div className="flex flex-col gap-4 max-md:w-full">
         <InputForm
           {...register('email')}
           label="Email"
@@ -47,7 +47,7 @@ export function LoginForm() {
           errorMessage={errors.password?.message}
         />
       </div>
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-4 max-md:w-full">
         <Button
           disabled={isSubmitting}
           type="submit"
@@ -58,7 +58,7 @@ export function LoginForm() {
         <Link
           to={'/register'}
           type="button"
-          className="py-5 flex justify-center items-center rounded-xl text-blue-900 font-extrabold text-xl bg-opacity-5 bg-blue-900"
+          className="py-5 flex justify-center items-center rounded-xl text-blue-900 font-extrabold text-xl bg-opacity-5 bg-blue-900 text-center max-md:bg-opacity-80 max-md:text-white"
         >
           Cadastrar minha organização
         </Link>

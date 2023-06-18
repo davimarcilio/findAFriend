@@ -52,9 +52,9 @@ export function RegisterForm() {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col py-10 gap-16 text-blue-900"
+      className="flex flex-col py-10 gap-16 text-blue-900 max-md:px-5 max-md:py-5"
     >
-      <h1 className="text-6xl font-bold w-full text-center ">
+      <h1 className="text-6xl font-bold w-full text-center max-md:text-4xl">
         Cadastre sua organização
       </h1>
       <div className="flex flex-col gap-4">
@@ -103,7 +103,7 @@ export function RegisterForm() {
             />
           ) : (
             <div
-              className="flex justify-center items-center text-opacity-80 font-semibold select-none text-blue-900"
+              className="flex justify-center items-center text-opacity-80 font-semibold select-none text-blue-900 max-md:text-center"
               style={{
                 width: '100%',
                 height: 225,
