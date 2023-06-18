@@ -1,5 +1,6 @@
 import {
   ageOptions,
+  environmentOptions,
   independencyOptions,
   petOptions,
   sizeOptions,
@@ -27,6 +28,7 @@ export const petFormSchemaValidator = z.object({
     '',
     ...independencyOptions.slice(1).map((independence) => independence.value),
   ]),
+  environment: z.enum(['', ...environmentOptions.map((env) => env.value)]),
   size: z.enum(['', ...sizeOptions.slice(1).map((size) => size.value)]),
   type: z.enum(['', ...petOptions.slice(1).map((pet) => pet.value)]),
   adoptionRequirements: z

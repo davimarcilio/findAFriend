@@ -1,27 +1,27 @@
 import { Circle, CornersIn, CornersOut, Lightning } from 'phosphor-react'
 import { PropContainer } from './components/PropContainer'
-import { CompletePet, PetIndependence, PetSize } from '@/models/interfaces/Pet'
+import { CompletePet, PetEnvironment, PetSize } from '@/models/interfaces/Pet'
 
 interface PropsSectionProps {
   currentPet: CompletePet
 }
 
-function formatIndependenceString(independence: PetIndependence) {
-  switch (independence) {
-    case 'low':
+function formatIndependenceString(env: PetEnvironment) {
+  switch (env) {
+    case 'small':
       return 'Ambiente pequeno'
-    case 'high':
+    case 'medium':
       return 'Ambiente médio'
     default:
       return 'Ambiente amplo'
   }
 }
 
-function formatIndependenceIcon(independence: PetIndependence) {
-  switch (independence) {
-    case 'low':
+function formatIndependenceIcon(env: PetEnvironment) {
+  switch (env) {
+    case 'small':
       return <Circle className="text-blue-900" size={20} />
-    case 'high':
+    case 'medium':
       return <CornersIn className="text-blue-900" size={20} />
     default:
       return <CornersOut className="text-blue-900" size={20} />
@@ -78,10 +78,10 @@ export function PropsSection({ currentPet }: PropsSectionProps) {
       </PropContainer>
       <PropContainer id="Independence">
         <div className="flex justify-start items-center">
-          {formatIndependenceIcon(currentPet.independence)}
+          {formatIndependenceIcon(currentPet.environment)}
         </div>
         <p className="text-blue-900 text-lg font-semibold">
-          {formatIndependenceString(currentPet.independence)}
+          {formatIndependenceString(currentPet.environment)}
         </p>
       </PropContainer>
 

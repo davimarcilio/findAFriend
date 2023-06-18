@@ -52,6 +52,7 @@ export function Form() {
     name,
     size,
     type,
+    environment,
   }: PetFormData) {
     const formData = new FormData()
 
@@ -63,6 +64,7 @@ export function Form() {
     formData.set('name', name)
     formData.set('size', size)
     formData.set('type', type)
+    formData.set('environment', environment)
     images.forEach((image) => {
       formData.append('images', image, image.name)
     })
@@ -204,6 +206,7 @@ export function Form() {
         </p>
       )}
       <SelectComponent
+        {...register('environment')}
         labelClassName="font-semibold text-blue-900 text-base"
         selectLabel="Ambiente"
         label="Ambiente"

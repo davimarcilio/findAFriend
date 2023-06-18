@@ -2,6 +2,7 @@ export type PetAge = 'cub' | 'adolescent' | 'elderly'
 export type PetIndependence = 'low' | 'medium' | 'high'
 export type PetSize = 'small' | 'medium' | 'big'
 export type PetType = 'cat' | 'dog'
+export type PetEnvironment = 'small' | 'medium' | 'large'
 export interface PetParams {
   age: PetAge
   energy: number
@@ -18,6 +19,7 @@ export interface Pet {
   age: PetAge
   energy: number
   size: PetSize
+  environment: PetEnvironment
   independence: PetIndependence
   type: PetType
   photo: string

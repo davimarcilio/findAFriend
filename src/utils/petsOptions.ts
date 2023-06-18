@@ -88,7 +88,7 @@ export const independencyOptions = [
 export const environmentOptions = [
   {
     label: 'Amplo',
-    value: 'low',
+    value: 'large',
   },
   {
     label: 'Médio',
@@ -96,6 +96,6 @@ export const environmentOptions = [
   },
   {
     label: 'Pequeno',
-    value: 'high',
+    value: 'small',
   },
 ]
